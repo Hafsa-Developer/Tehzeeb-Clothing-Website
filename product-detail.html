@@ -1,0 +1,1380 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=yes">
+    <title>Tehzeeb – Product Details | Elegance in Every Thread</title>
+    <!-- Google Fonts + Font Awesome -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background: #fefaf5;
+            color: #2c2b28;
+            overflow-x: hidden;
+        }
+
+        /* Prevent body scroll when sidebar open */
+        body.sidebar-open {
+            overflow: hidden;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* ========== RESPONSIVE NAVBAR (exactly same as index) ========== */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            transition: 0.3s ease;
+            background: transparent;
+            border-bottom: none;
+        }
+
+        header.scrolled {
+            background: #ffffffea !important;
+            backdrop-filter: blur(6px);
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+            border-bottom: 1px solid #f0e5dc;
+        }
+
+        header .desktop-nav a,
+        header .nav-icons a {
+            color: black;
+            transition: color 0.2s;
+        }
+
+        header.scrolled .desktop-nav a,
+        header.scrolled .nav-icons a {
+            color: #2c2b28;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 24px;
+            flex-wrap: wrap;
+        }
+
+        @media (max-width: 992px) {
+            .nav-container {
+                padding: 18px 20px 14px 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .nav-container {
+                padding: 20px 16px 12px 16px;
+            }
+        }
+
+        .logo {
+            font-size: 26px;
+            font-weight: 600;
+            letter-spacing: -0.5px;
+            background: linear-gradient(135deg, #b47c5e, #8b5a3c);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-decoration: none;
+        }
+
+        .desktop-nav ul {
+            display: flex;
+            gap: 20px;
+            list-style: none;
+        }
+
+        .desktop-nav a {
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: 0.2s;
+            white-space: nowrap;
+        }
+
+        .desktop-nav a:hover,
+        .desktop-nav a.active {
+            color: #b47c5e;
+        }
+
+        .sale-link {
+            color: #d9534f;
+            font-weight: 600;
+        }
+
+        .dropdown-trigger {
+            position: relative;
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: 30px;
+            left: -10px;
+            background: white;
+            min-width: 160px;
+            border-radius: 14px;
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
+            list-style: none;
+            padding: 10px 0;
+            opacity: 0;
+            visibility: hidden;
+            transition: 0.2s;
+            z-index: 200;
+        }
+
+        .dropdown-trigger:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .dropdown-menu li a {
+            display: block;
+            padding: 8px 20px;
+            color: #2c2b28 !important;
+        }
+
+        .nav-icons {
+            display: flex;
+            gap: 18px;
+            align-items: center;
+        }
+
+        .nav-icons a {
+            font-size: 1.2rem;
+            position: relative;
+            text-decoration: none;
+        }
+
+        .count-badge {
+            position: absolute;
+            top: -10px;
+            right: -12px;
+            background: #b47c5e;
+            color: white;
+            font-size: 10px;
+            font-weight: 600;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .mobile-menu-icon {
+            display: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: black;
+            transition: color 0.2s;
+        }
+
+        .mobile-menu-icon:hover {
+            color: #b47c5e;
+        }
+
+        header.scrolled .mobile-menu-icon {
+            color: #2c2b28;
+        }
+
+        /* ========== SEARCH OVERLAY STYLES ========== */
+        .search-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.92);
+            backdrop-filter: blur(8px);
+            z-index: 3000;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            padding-top: 15vh;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .search-overlay.open {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .search-container {
+            width: 90%;
+            max-width: 700px;
+            position: relative;
+        }
+
+        #globalSearchInput {
+            width: 100%;
+            padding: 20px 24px;
+            font-size: 1.2rem;
+            border: none;
+            border-radius: 60px;
+            background: white;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            outline: none;
+            font-weight: 500;
+            color: #2c2b28;
+        }
+
+        #globalSearchInput::placeholder {
+            color: #b7a99e;
+            font-weight: 400;
+        }
+
+        .suggestions-dropdown {
+            position: absolute;
+            top: 80px;
+            left: 0;
+            width: 100%;
+            background: white;
+            border-radius: 28px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+            max-height: 380px;
+            overflow-y: auto;
+            z-index: 3001;
+            display: none;
+        }
+
+        .suggestions-dropdown.show {
+            display: block;
+        }
+
+        .suggestion-item {
+            padding: 14px 24px;
+            cursor: pointer;
+            transition: background 0.2s;
+            border-bottom: 1px solid #f0e5dc;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .suggestion-item:last-child {
+            border-bottom: none;
+        }
+
+        .suggestion-item:hover {
+            background: #fef5ed;
+        }
+
+        .suggestion-name {
+            font-weight: 500;
+            color: #3e2c21;
+        }
+
+        .suggestion-price {
+            color: #b47c5e;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        #closeSearchBtn {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            background: none;
+            border: none;
+            font-size: 32px;
+            color: white;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        #closeSearchBtn:hover {
+            color: #b47c5e;
+            transform: scale(1.05);
+        }
+
+        @media (max-width: 768px) {
+            .search-overlay {
+                padding-top: 20vh;
+            }
+
+            #globalSearchInput {
+                padding: 16px 20px;
+                font-size: 1rem;
+            }
+
+            .suggestions-dropdown {
+                top: 68px;
+            }
+
+            #closeSearchBtn {
+                top: 15px;
+                right: 20px;
+                font-size: 28px;
+            }
+        }
+
+        /* ========== FULLY FUNCTIONAL MOBILE SIDEBAR MENU (same as index) ========== */
+        .mobile-sidebar {
+            position: fixed;
+            top: 0;
+            left: -100%;
+            width: 85%;
+            max-width: 320px;
+            height: 100vh;
+            background: white;
+            z-index: 2001;
+            transition: left 0.3s ease-in-out;
+            box-shadow: 2px 0 30px rgba(0, 0, 0, 0.1);
+            overflow-y: auto;
+            padding: 24px 20px;
+        }
+
+        .mobile-sidebar.open {
+            left: 0;
+        }
+
+        .mobile-sidebar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 32px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid #f0e5dc;
+        }
+
+        .mobile-sidebar-header .logo {
+            font-size: 24px;
+        }
+
+        .close-sidebar {
+            font-size: 28px;
+            cursor: pointer;
+            color: #8b735b;
+            transition: color 0.2s;
+        }
+
+        .close-sidebar:hover {
+            color: #b47c5e;
+        }
+
+        .mobile-nav-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .mobile-nav-list li {
+            margin-bottom: 8px;
+        }
+
+        .mobile-nav-list a {
+            display: block;
+            padding: 12px 0;
+            text-decoration: none;
+            color: #3e3a35;
+            font-weight: 500;
+            font-size: 1rem;
+            transition: color 0.2s;
+            border-bottom: 1px solid #f9f0e8;
+        }
+
+        .mobile-nav-list a:hover,
+        .mobile-nav-list a.active-mobile {
+            color: #b47c5e;
+        }
+
+        .mobile-dropdown {
+            margin: 8px 0 8px 16px;
+            list-style: none;
+            display: none;
+            padding-left: 12px;
+            border-left: 2px solid #f0e2d6;
+        }
+
+        .mobile-dropdown.show {
+            display: block;
+        }
+
+        .mobile-dropdown li a {
+            padding: 8px 0;
+            font-size: 0.9rem;
+            font-weight: 400;
+            border-bottom: none;
+        }
+
+        .mobile-collections-toggle {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            padding: 12px 0;
+            border-bottom: 1px solid #f9f0e8;
+        }
+
+        .mobile-collections-toggle span {
+            font-weight: 500;
+            color: #b47c5e;
+        }
+
+        .mobile-collections-toggle i {
+            transition: transform 0.2s;
+            color: #b47c5e;
+        }
+
+        .mobile-collections-toggle i.rotated {
+            transform: rotate(180deg);
+        }
+
+        .overlay-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: 0.3s;
+        }
+
+        .overlay-bg.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Buttons */
+        .btn-primary {
+            background: #b47c5e;
+            color: white;
+            border: none;
+            padding: 12px 32px;
+            border-radius: 40px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+            display: inline-block;
+            text-decoration: none;
+            font-size: 1rem;
+        }
+
+        .btn-primary:hover {
+            background: #9a674b;
+            transform: scale(1.02);
+        }
+
+        /* ========== PRODUCT PAGE STYLES ========== */
+        .product-page {
+            padding-top: 120px;
+            padding-bottom: 80px;
+            background: linear-gradient(135deg, #fefaf5 0%, #fff8f2 100%);
+        }
+
+        .product-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 48px;
+            background: white;
+            border-radius: 32px;
+            padding: 40px;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.05);
+            margin-bottom: 40px;
+        }
+
+        /* Image Gallery */
+        .product-gallery {
+            flex: 1;
+            min-width: 280px;
+        }
+
+        .main-image {
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            border-radius: 28px;
+            overflow: hidden;
+            background: #f5ede5;
+            margin-bottom: 20px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .main-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s;
+        }
+
+        .main-image img:hover {
+            transform: scale(1.02);
+        }
+
+        .thumbnail-carousel {
+            display: flex;
+            gap: 12px;
+            overflow-x: auto;
+            padding-bottom: 8px;
+        }
+
+        .thumbnail {
+            width: 80px;
+            height: 80px;
+            border-radius: 16px;
+            overflow: hidden;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: all 0.2s;
+            background: #f5ede5;
+            flex-shrink: 0;
+        }
+
+        .thumbnail img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .thumbnail.active {
+            border-color: #b47c5e;
+            box-shadow: 0 4px 12px rgba(180, 124, 94, 0.3);
+        }
+
+        .thumbnail:hover {
+            transform: translateY(-3px);
+        }
+
+        /* Product Details */
+        .product-details {
+            flex: 1;
+            min-width: 280px;
+        }
+
+        .product-name {
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            font-weight: 700;
+            color: #3e2c21;
+            margin-bottom: 12px;
+        }
+
+        .price-section {
+            display: flex;
+            align-items: baseline;
+            gap: 16px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .current-price {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #b47c5e;
+        }
+
+        .original-price {
+            font-size: 1.2rem;
+            color: #b7a99e;
+            text-decoration: line-through;
+        }
+
+        .sale-badge {
+            background: #d9534f;
+            color: white;
+            padding: 6px 14px;
+            border-radius: 40px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            display: inline-block;
+        }
+
+        .product-description {
+            color: #5e4e3e;
+            line-height: 1.6;
+            margin: 20px 0;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #f0e2d6;
+        }
+
+        .short-desc {
+            font-weight: 500;
+            margin-bottom: 12px;
+            font-size: 1rem;
+        }
+
+        .full-desc {
+            font-size: 0.95rem;
+        }
+
+        /* Size Selector */
+        .size-selector {
+            margin: 24px 0;
+        }
+
+        .size-label {
+            font-weight: 600;
+            margin-bottom: 12px;
+            display: block;
+            color: #3e2c21;
+        }
+
+        .size-options {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .size-btn {
+            width: 50px;
+            padding: 10px;
+            border: 1.5px solid #e8ddd2;
+            background: white;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.2s;
+            text-align: center;
+        }
+
+        .size-btn:hover {
+            border-color: #b47c5e;
+        }
+
+        .size-btn.selected {
+            background: #b47c5e;
+            color: white;
+            border-color: #b47c5e;
+        }
+
+        /* Action Buttons */
+        .action-buttons {
+            display: flex;
+            gap: 16px;
+            margin: 32px 0;
+            flex-wrap: wrap;
+        }
+
+        .btn-add-to-cart {
+            flex: 1;
+            background: white;
+            border: 2px solid #b47c5e;
+            color: #b47c5e;
+            padding: 14px 24px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .btn-add-to-cart:hover {
+            background: #b47c5e;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .btn-buy-now {
+            flex: 1;
+            background: #b47c5e;
+            border: none;
+            color: white;
+            padding: 14px 24px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .btn-buy-now:hover {
+            background: #9a674b;
+            transform: translateY(-2px);
+        }
+
+        /* Additional Info */
+        .additional-info {
+            background: #fefaf5;
+            border-radius: 24px;
+            padding: 20px;
+            margin-top: 24px;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin-top: 16px;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 0.9rem;
+            color: #5e4e3e;
+        }
+
+        .info-item i {
+            color: #b47c5e;
+            font-size: 1.2rem;
+            width: 28px;
+        }
+
+        /* Related Products */
+        .related-section {
+            margin-top: 60px;
+        }
+
+        .related-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #3e2c21;
+            text-align: center;
+            margin-bottom: 32px;
+            position: relative;
+        }
+
+        .related-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, #b47c5e, #e6b17e);
+            border-radius: 3px;
+        }
+
+        .related-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 28px;
+            margin-top: 32px;
+        }
+
+        .related-card {
+            background: white;
+            border-radius: 24px;
+            overflow: hidden;
+            transition: 0.25s;
+            cursor: pointer;
+            box-shadow: 0 5px 12px rgba(0, 0, 0, 0.03);
+        }
+
+        .related-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -12px rgba(0, 0, 0, 0.1);
+        }
+
+        .related-img {
+            height: 260px;
+            background: #f5ede5;
+            overflow: hidden;
+        }
+
+        .related-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: 0.3s;
+        }
+
+        .related-card:hover .related-img img {
+            transform: scale(1.03);
+        }
+
+        .related-info {
+            padding: 16px;
+        }
+
+        .related-name {
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .related-price {
+            color: #b47c5e;
+            font-weight: 600;
+        }
+
+        .error-message {
+            text-align: center;
+            padding: 60px 20px;
+            background: white;
+            border-radius: 28px;
+        }
+
+        .error-message i {
+            font-size: 4rem;
+            color: #b47c5e;
+            margin-bottom: 20px;
+        }
+
+        /* footer */
+        footer {
+            background: #1f1c19;
+            color: #cfc5bc;
+            padding: 48px 0 24px;
+            margin-top: 60px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 32px;
+        }
+
+        .footer-col h4 {
+            color: #f0e2d6;
+            margin-bottom: 18px;
+        }
+
+        .footer-col a,
+        .footer-col p {
+            color: #b7a99e;
+            text-decoration: none;
+            line-height: 1.8;
+            font-size: 0.9rem;
+        }
+
+        .newsletter {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .newsletter input {
+            padding: 12px;
+            border-radius: 40px;
+            border: none;
+            width: 100%;
+            max-width: 220px;
+        }
+
+        .newsletter button {
+            background: #b47c5e;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 40px;
+            color: white;
+            cursor: pointer;
+            width: fit-content;
+        }
+
+        .social-icons i {
+            font-size: 20px;
+            margin-right: 15px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .social-icons i:hover {
+            color: #b47c5e;
+        }
+
+        @media (max-width: 992px) {
+            .desktop-nav {
+                display: none;
+            }
+
+            .mobile-menu-icon {
+                display: block;
+            }
+
+            .nav-icons {
+                margin-top: 15px;
+                margin-bottom: 15px;
+            }
+
+            .product-container {
+                padding: 24px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 16px;
+            }
+
+            .product-page {
+                padding-top: 100px;
+            }
+
+            .product-container {
+                flex-direction: column;
+                gap: 32px;
+            }
+
+            .thumbnail {
+                width: 65px;
+                height: 65px;
+            }
+
+            .action-buttons {
+                flex-direction: column;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .product-container {
+                padding: 16px;
+            }
+
+            .current-price {
+                font-size: 1.6rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <div class="container nav-container">
+            <a href="index.html" class="logo">Tehzeeb</a>
+            <nav class="desktop-nav">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="new-arrivals.html">New Arrivals</a></li>
+                    <li class="dropdown-trigger"><a href="#">Collections <i class="fas fa-chevron-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="collection(lawn).html">Lawn</a></li>
+                            <li><a href="collection(pret).html">Pret</a></li>
+                            <li><a href="collection(formal).html">Formal</a></li>
+                            <li><a href="collection(unstitched).html">Unstitched</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="collection(sale).html" class="sale-link">Sale 🔥</a></li>
+                    <li><a href="/lookbook/lookbook.html">Lookbook</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+            <div class="nav-icons">
+                <a href="#" id="searchIconBtn"><i class="fas fa-search"></i></a>
+                <a href="wishlist.html"><i class="fas fa-heart"></i><span id="wishlistCount"
+                        class="count-badge">0</span></a>
+                <a href="cart.html"><i class="fas fa-shopping-cart"></i><span id="cartCount"
+                        class="count-badge">0</span></a>
+            </div>
+            <div class="mobile-menu-icon" id="mobileMenuToggle"><i class="fas fa-bars"></i></div>
+        </div>
+    </header>
+
+    <!-- SEARCH OVERLAY (Fully Functional) -->
+    <div id="searchOverlay" class="search-overlay">
+        <div class="search-container">
+            <input type="text" id="globalSearchInput" placeholder="Search lawn, pret, formal..." autocomplete="off">
+            <div id="searchSuggestions" class="suggestions-dropdown"></div>
+        </div>
+        <button id="closeSearchBtn"><i class="fas fa-times"></i></button>
+    </div>
+
+    <!-- FULLY FUNCTIONAL MOBILE SIDEBAR MENU -->
+    <div class="overlay-bg" id="mobileOverlay"></div>
+    <div class="mobile-sidebar" id="mobileSidebar">
+        <div class="mobile-sidebar-header">
+            <a href="index.html" class="logo" onclick="closeMobileMenu()">Tehzeeb</a>
+            <i class="fas fa-times close-sidebar" id="closeSidebarBtn"></i>
+        </div>
+        <ul class="mobile-nav-list">
+            <li><a href="index.html" onclick="closeMobileMenu()">Home</a></li>
+            <li><a href="new-arrivals.html" onclick="closeMobileMenu()">New Arrivals</a></li>
+            <li>
+                <div class="mobile-collections-toggle" id="mobileCollectionsToggle">
+                    <span>Collections</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <ul class="mobile-dropdown" id="mobileDropdown">
+                    <li><a href="collection(lawn).html" onclick="closeMobileMenu()">Lawn</a></li>
+                    <li><a href="collection(pret).html" onclick="closeMobileMenu()">Pret</a></li>
+                    <li><a href="collection(formal).html" onclick="closeMobileMenu()">Formal</a></li>
+                    <li><a href="collection(unstitched).html" onclick="closeMobileMenu()">Unstitched</a></li>
+                </ul>
+            </li>
+            <li><a href="collection(sale).html" onclick="closeMobileMenu()">Sale 🔥</a></li>
+            <li><a href="/lookbook/lookbook.html" onclick="closeMobileMenu()">Lookbook</a></li>
+            <li><a href="contact.html" onclick="closeMobileMenu()">Contact</a></li>
+        </ul>
+    </div>
+
+    <main>
+        <section class="product-page">
+            <div class="container" id="productContainer">
+                <div class="error-message" id="loadingMessage">
+                    <i class="fas fa-spinner fa-spin"></i>
+                    <p>Loading product details...</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container footer-grid">
+            <div class="footer-col">
+                <h4>Tehzeeb</h4>
+                <p>Elegance in every thread, crafted with tradition & modernity.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Quick Links</h4>
+                <a href="index.html">Home</a><br>
+                <a href="new-arrivals.html">New Arrivals</a><br>
+                <a href="collection(sale).html">Sale</a><br>
+                <a href="/lookbook/lookbook.html">Lookbook</a>
+            </div>
+            <div class="footer-col">
+                <h4>Contact</h4>
+                <p><i class="fas fa-phone"></i> +92 300 1234567</p>
+                <p><i class="fas fa-envelope"></i> tehzeebbyk@gmail.com</p>
+                <p>Lahore, Pakistan</p>
+            </div>
+            <div class="footer-col newsletter">
+                <h4>Newsletter</h4>
+                <input type="email" id="newsEmail" placeholder="Your email">
+                <button id="subscribeBtn">Subscribe</button>
+                <div class="social-icons" style="margin-top:15px">
+                    <a href="https://www.instagram.com/tehzeebbyk" target="_blank"><i class="fab fa-instagram"></i></a>
+                    <a href="https://facebook.com/share/1ATjktRQsa" target="_blank"><i class="fab fa-facebook"></i></a>
+                    <a href="https://www.tiktok.com/@tehzeebbyk" target="_blank"><i class="fab fa-tiktok"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="container" style="text-align:center; margin-top:40px">
+            <p>© 2025 Tehzeeb — All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Complete Product Database
+        const allProducts = [
+            // Lawn Products
+            { id: 1, name: "Spring Lawn Embroidered", price: 4990, originalPrice: 7990, category: "lawn", image: "/images/lawn1.jpg", sizes: ["S", "M", "L", "XL"], isNew: true, description: "Breathable lawn fabric with intricate floral embroidery. Perfect for summer days and casual gatherings.", shortDesc: "Premium quality lawn with delicate embroidery", images: ["/images/lawn1.jpg"] },
+            { id: 2, name: "Lawn Chiffon Duo", price: 5490, originalPrice: 7990, category: "lawn", image: "/images/lawn2.jpg", sizes: ["S", "M", "L", "XL"], isNew: false, description: "Lightweight lawn shirt paired with a sheer chiffon dupatta. Stay stylish and cool all summer long.", shortDesc: "Lawn shirt with chiffon dupatta", images: ["/images/lawn2.jpg"] },
+            { id: 3, name: "Embroidered Lawn Suit", price: 7990, originalPrice: 9990, category: "lawn", image: "/images/lawn3.jpg", sizes: ["S", "M", "L"], isNew: true, description: "Intricately embroidered lawn suit with modern cut. Perfect for festive occasions.", shortDesc: "Heavy embroidered lawn suit", images: ["/images/lawn3.jpg"] },
+            { id: 4, name: "Lawn Summer Floral", price: 4490, originalPrice: 5990, category: "lawn", image: "/images/lawn4.jpg", sizes: ["S", "M", "L", "XL"], isNew: true, description: "Vibrant floral prints on premium lawn fabric. Lightweight and breathable.", shortDesc: "Floral printed lawn suit", images: ["/images/lawn4.jpg"] },
+
+            // Pret Products
+            { id: 5, name: "Digital Printed Pret", price: 5990, originalPrice: 8990, category: "pret", image: "/images/pretpink1.jpg", sizes: ["S", "M", "L", "XL"], isNew: true, description: "Contemporary digital print with modern silhouette. Perfect for festive occasions.", shortDesc: "Ready-to-wear digital print", images: ["/images/pretpink1.jpg", "/images/pretpink2.jpg"] },
+            { id: 6, name: "Chiffon Pret Shirt", price: 6990, originalPrice: 9990, category: "pret", image: "/images/pretbrown1.jpg", sizes: ["S", "M", "L"], isNew: true, description: "Elegant chiffon pret shirt with delicate details. Lightweight and stylish.", shortDesc: "Chiffon pret shirt", images: ["/images/pretbrown1.jpg", "/images/pretbrown2.jpg"] },
+            { id: 7, name: "Pret Jacquard Kurta", price: 8490, originalPrice: 11990, category: "pret", image: "/images/pretgrey1.jpg", sizes: ["S", "M", "L"], isNew: false, description: "Luxurious jacquard kurta with modern design. Perfect for semi-formal events.", shortDesc: "Jacquard woven kurta", images: ["/images/pretgrey1.jpg", "/images/pretgrey2.jpg"] },
+            { id: 8, name: "Embroidered Pret Dupatta", price: 7990, originalPrice: 10990, category: "pret", image: "/images/pretyellow1.jpg", sizes: ["S", "M", "L", "XL"], isNew: true, description: "Beautifully embroidered pret dupatta set. Adds elegance to any outfit.", shortDesc: "Embroidered dupatta set", images: ["/images/pretyellow1.jpg", "/images/pretyellow2.jpg"] },
+
+            // Formal Products
+            { id: 9, name: "Formal Silk Ensemble", price: 12990, originalPrice: 18990, category: "formal", image: "/images/formalkurti1.jpg", sizes: ["M", "L", "XL"], isNew: false, description: "Luxurious silk formal ensemble with intricate embellishments. Perfect for weddings.", shortDesc: "Premium silk formal suit", images: ["/images/formalkurti1.jpg", "/images/formalkurti2.jpg", "/images/formalkurti3.jpg"] },
+            { id: 10, name: "Velvet Formal Cape", price: 15990, originalPrice: 22990, category: "formal", image: "/images/formalvalvet1.jpg", sizes: ["M", "L", "XL"], isNew: false, description: "Elegant velvet cape with formal trousers. Makes a stunning statement.", shortDesc: "Luxury velvet cape set", images: ["/images/formalvalvet1.jpg", "/images/formalvalvet2.jpg", "/images/formalvalvet3.jpg"] },
+            { id: 11, name: "Embroidered Formal Suit", price: 18990, originalPrice: 25990, category: "formal", image: "/images/formalsuit1.jpg", sizes: ["S", "M", "L", "XL"], isNew: true, description: "Heavily embroidered formal suit with premium fabric. Red carpet ready.", shortDesc: "Heavy embroidery formal", images: ["/images/formalsuit1.jpg", "/images/formalsuit2.jpg", "/images/formalsuit3.jpg"] },
+            { id: 12, name: "Luxury Chiffon Suit", price: 14990, originalPrice: 19990, category: "formal", image: "/images/Oformalsuit1.jpg", sizes: ["Free"], isNew: true, description: "Elegant chiffon formal suit", shortDesc: "Premium chiffon formal", images: ["/images/Oformalsuit1.jpg", "/images/Oformalsuit2.jpg", "/images/Oformalsuit3.jpg"] },
+
+            // Unstitched Products
+            { id: 13, name: "Unstitched Lawn Bundle", price: 3590, originalPrice: 4990, category: "unstitched", image: "/images/unstitchlawn1.jpg", sizes: ["Free"], isNew: true, description: "3-piece unstitched lawn suit bundle. Premium quality fabric with coordinated prints.", shortDesc: "3-piece lawn bundle", images: ["/images/unstitchlawn1.jpg", "/images/unstitchlawn2.jpg"] },
+            { id: 14, name: "Chiffon Dupatta Set", price: 2990, originalPrice: 3990, category: "unstitched", image: "/images/unstitchchiffon1.jpg", sizes: ["Free"], isNew: false, description: "Elegant chiffon dupatta with matching shirt piece. Lightweight and airy.", shortDesc: "Chiffon dupatta set", images: ["/images/unstitchchiffon1.jpg", "/images/unstitchchiffon2.jpg"] },
+            { id: 15, name: "Embroidered Lawn Bundle", price: 4990, originalPrice: 6990, category: "unstitched", image: "/images/unstitchreshmi1.jpg", sizes: ["Free"], isNew: true, description: "Heavy embroidered lawn bundle with dupatta. Perfect for festive occasions.", shortDesc: "Embroidered lawn bundle", images: ["/images/unstitchreshmi1.jpg", "/images/unstitchreshmi2.jpg"] },
+            { id: 16, name: "Unstitched Lawn Bundle", price: 3590, category: "unstitched", image: "/images/unstitchcutton1.jpg", sizes: ["Free"], isNew: true, description: "3-piece unstitched lawn suit bundle. Premium quality fabric with coordinated prints.", images: ["/images/unstitchcutton1.jpg", "/images/unstitchcutton2.jpg"] },
+            { id: 17, name: "Chiffon Dupatta Set", price: 2990, category: "unstitched", image: "/images/unstitchlawn11.jpg", sizes: ["Free"], isNew: false, description: "Elegant chiffon dupatta with matching shirt piece. Lightweight and airy.", images: ["/images/unstitchlawn11.jpg", "/images/unstitchlawn22.jpg"] },
+            { id: 18, name: "Embroidered Velvet Bundle", price: 4990, category: "unstitched", image: "/images/unstitchvalvet1.jpg", sizes: ["Free"], isNew: true, description: "Heavy embroidered velvet bundle with dupatta. Perfect for festive occasions.", images: ["/images/unstitchvalvet1.jpg", "/images/unstitchvalvet2.jpg"] },
+
+            // Sale Products
+            { id: 19, name: "Sale Lawn Special", price: 2990, originalPrice: 5990, category: "lawn", image: "/images/saleone1.jpg", sizes: ["S", "M", "L", "XL"], isNew: false, isSale: true, description: "Limited time sale on premium lawn suits. Grab yours before they're gone!", shortDesc: "40% OFF - Premium lawn", images: ["/images/saleone1.jpg", "/images/saleone2.jpg"] },
+            { id: 20, name: "Sale Pret Collection", price: 3590, originalPrice: 6990, category: "pret", image: "/images/saletwo1.jpg", sizes: ["S", "M", "L", "XL"], isNew: false, isSale: true, description: "Amazing discounts on pret collection. Stylish and affordable.", shortDesc: "48% OFF - Pret collection", images: ["/images/saletwo1.jpg", "/images/saletwo2.jpg"] },
+            { id: 21, name: "Sale Formal Ensemble", price: 7790, originalPrice: 15990, category: "formal", image: "/images/salethree1.jpg", sizes: ["M", "L", "XL"], isNew: false, isSale: true, description: "Luxury formal wear at unbeatable prices. Limited stock available.", shortDesc: "51% OFF - Formal wear", images: ["/images/salethree1.jpg", "/images/salethree2.jpg"] },
+            { id: 22, name: "Sale Unstitched Bundle", price: 2150, originalPrice: 4290, category: "unstitched", image: "/images/salefour1.jpg", sizes: ["Free"], isNew: false, isSale: true, description: "Premium unstitched fabrics at discounted rates. Limited time offer.", shortDesc: "50% OFF - Unstitched", images: ["/images/salefour1.jpg", "/images/salefour2.jpg"] }
+        ];
+
+        // Lookbook Products
+        const lookbookProducts = [
+            { id: 101, name: "Lawn Summer Dream", price: 5490, originalPrice: 7990, category: "lawn", image: "/lookbook/look1.jpg", sizes: ["S", "M", "L", "XL"], isNew: true, description: "Dreamy lawn suit perfect for summer days with intricate embroidery.", shortDesc: "Summer lawn collection", images: ["/lookbook/look1.jpg", "/lookbook/look11.jpg"] },
+            { id: 102, name: "Pret Chiffon Elegance", price: 6990, originalPrice: 8990, category: "pret", image: "/lookbook/look2.jpg", sizes: ["S", "M", "L", "XL"], isNew: true, description: "Elegant chiffon pret shirt with modern design.", shortDesc: "Chiffon pret collection", images: ["/lookbook/look2.jpg", "/lookbook/look22.jpg"] },
+            { id: 103, name: "Formal Silk Ensemble", price: 18990, originalPrice: 25990, category: "formal", image: "/lookbook/look3.jpg", sizes: ["M", "L", "XL"], isNew: false, description: "Luxurious silk formal wear for special occasions.", shortDesc: "Premium silk formal", images: ["/lookbook/look3.jpg", "/lookbook/look33.jpg"] },
+            { id: 104, name: "Lawn Duo Collection", price: 4990, originalPrice: 6990, category: "lawn", image: "/lookbook/look4.jpg", sizes: ["S", "M", "L", "XL"], isNew: true, description: "Beautiful lawn duo set with matching dupatta.", shortDesc: "Lawn duo collection", images: ["/lookbook/look4.jpg", "/lookbook/look44.jpg"] },
+            { id: 105, name: "Unstitched Heritage", price: 3990, originalPrice: 5990, category: "unstitched", image: "/lookbook/look5.jpg", sizes: ["Free"], isNew: true, description: "Premium unstitched fabric with traditional patterns.", shortDesc: "Heritage collection", images: ["/lookbook/look5.jpg", "/lookbook/look55.jpg"] },
+            { id: 106, name: "Pret Digital Print", price: 6490, originalPrice: 8990, category: "pret", image: "/lookbook/look6.jpg", sizes: ["S", "M", "L", "XL"], isNew: true, description: "Contemporary digital printed pret shirt.", shortDesc: "Digital print pret", images: ["/lookbook/look6.jpg", "/lookbook/look66.jpg"] },
+            { id: 107, name: "Velvet Formal Cape", price: 15990, originalPrice: 22990, category: "formal", image: "/lookbook/look7.jpg", sizes: ["M", "L", "XL"], isNew: false, description: "Stunning velvet cape with formal trousers.", shortDesc: "Velvet formal set", images: ["/lookbook/look7.jpg", "/lookbook/look77.jpg"] },
+            { id: 108, name: "Lawn Embroidered", price: 5990, originalPrice: 7990, category: "lawn", image: "/lookbook/look8.jpg", sizes: ["S", "M", "L", "XL"], isNew: true, description: "Intricately embroidered lawn suit.", shortDesc: "Embroidered lawn", images: ["/lookbook/look8.jpg", "/lookbook/look88.jpg"] }
+        ];
+
+        allProducts.push(...lookbookProducts);
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const productId = parseInt(urlParams.get('id'));
+        let selectedSize = '';
+        let currentProduct = null;
+
+        // ========== SEARCH FUNCTIONALITY ==========
+        const searchOverlay = document.getElementById('searchOverlay');
+        const searchInput = document.getElementById('globalSearchInput');
+        const suggestionsDiv = document.getElementById('searchSuggestions');
+        const searchIconBtn = document.getElementById('searchIconBtn');
+        const closeSearchBtn = document.getElementById('closeSearchBtn');
+
+        // Open search overlay
+        if (searchIconBtn) {
+            searchIconBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                searchOverlay.classList.add('open');
+                setTimeout(() => searchInput.focus(), 100);
+            });
+        }
+
+        // Close search overlay
+        function closeSearchOverlay() {
+            searchOverlay.classList.remove('open');
+            suggestionsDiv.classList.remove('show');
+            suggestionsDiv.innerHTML = '';
+            searchInput.value = '';
+        }
+
+        if (closeSearchBtn) closeSearchBtn.addEventListener('click', closeSearchOverlay);
+        searchOverlay.addEventListener('click', (e) => {
+            if (e.target === searchOverlay) closeSearchOverlay();
+        });
+
+        // Live search with suggestions
+        if (searchInput) {
+            searchInput.addEventListener('input', (e) => {
+                const val = e.target.value.trim();
+                if (!val) {
+                    suggestionsDiv.classList.remove('show');
+                    suggestionsDiv.innerHTML = '';
+                    return;
+                }
+
+                const filtered = allProducts.filter(p =>
+                    p.name.toLowerCase().includes(val.toLowerCase())
+                );
+
+                if (filtered.length === 0) {
+                    suggestionsDiv.innerHTML = '<div class="suggestion-item" style="justify-content:center; color:#b47c5e;">No products found</div>';
+                    suggestionsDiv.classList.add('show');
+                    return;
+                }
+
+                suggestionsDiv.innerHTML = filtered.slice(0, 8).map(p => `
+                    <div class="suggestion-item" data-id="${p.id}">
+                        <span class="suggestion-name">${p.name}</span>
+                        <span class="suggestion-price">Rs. ${p.price.toLocaleString()}</span>
+                    </div>
+                `).join('');
+                suggestionsDiv.classList.add('show');
+
+                document.querySelectorAll('.suggestion-item').forEach(el => {
+                    el.addEventListener('click', () => {
+                        const pid = parseInt(el.dataset.id);
+                        if (pid) {
+                            closeSearchOverlay();
+                            window.location.href = `product-detail.html?id=${pid}`;
+                        }
+                    });
+                });
+            });
+
+            searchInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    const val = searchInput.value.trim();
+                    if (val) {
+                        const matched = allProducts.filter(p => p.name.toLowerCase().includes(val.toLowerCase()));
+                        if (matched.length > 0) {
+                            closeSearchOverlay();
+                            window.location.href = `product-detail.html?id=${matched[0].id}`;
+                        } else {
+                            alert(`No products found matching "${val}"`);
+                        }
+                    }
+                }
+            });
+        }
+
+        function getImageGallery(product) {
+            const images = product.images || [product.image];
+            if (product.category === 'lawn') return [product.image];
+            if (product.category === 'pret' || product.category === 'unstitched') {
+                return [product.image, ...(images.slice(1, 2))];
+            }
+            if (product.category === 'formal') {
+                return [product.image, ...images.slice(1, 3)];
+            }
+            return [product.image];
+        }
+
+        function renderProductPage() {
+            const container = document.getElementById('productContainer');
+            currentProduct = allProducts.find(p => p.id === productId);
+
+            if (!currentProduct) {
+                container.innerHTML = `
+                    <div class="error-message">
+                        <i class="fas fa-exclamation-circle"></i>
+                        <h2>Product Not Found</h2>
+                        <p>Sorry, the product you're looking for doesn't exist.</p>
+                        <a href="index.html" class="btn-primary" style="margin-top: 20px; display: inline-block;">Return to Home</a>
+                    </div>
+                `;
+                return;
+            }
+
+            selectedSize = currentProduct.sizes[0] === 'Free' ? 'Free' : (currentProduct.sizes[0] || 'M');
+            const isSaleItem = currentProduct.originalPrice && currentProduct.originalPrice > currentProduct.price;
+            const galleryImages = getImageGallery(currentProduct);
+
+            const thumbnailsHtml = galleryImages.length > 1 ? galleryImages.map((img, idx) =>
+                `<div class="thumbnail ${idx === 0 ? 'active' : ''}" data-img="${img}">
+                    <img src="${img}" alt="Product view ${idx + 1}">
+                </div>`
+            ).join('') : '';
+
+            const sizeOptionsHtml = currentProduct.sizes[0] !== 'Free' ?
+                currentProduct.sizes.map(size =>
+                    `<div class="size-btn ${size === selectedSize ? 'selected' : ''}" data-size="${size}">${size}</div>`
+                ).join('') : '';
+
+            container.innerHTML = `
+                <div class="product-container">
+                    <div class="product-gallery">
+                        <div class="main-image">
+                            <img id="mainProductImage" src="${galleryImages[0]}" alt="${currentProduct.name}">
+                        </div>
+                        ${galleryImages.length > 1 ? `<div class="thumbnail-carousel" id="thumbnailCarousel">${thumbnailsHtml}</div>` : ''}
+                    </div>
+                    <div class="product-details">
+                        <h1 class="product-name">${currentProduct.name}</h1>
+                        <div class="price-section">
+                            <span class="current-price">Rs. ${currentProduct.price.toLocaleString()}</span>
+                            ${isSaleItem ? `<span class="original-price">Rs. ${currentProduct.originalPrice.toLocaleString()}</span>` : ''}
+                            ${isSaleItem ? `<span class="sale-badge">-${Math.round((1 - currentProduct.price / currentProduct.originalPrice) * 100)}% OFF</span>` : ''}
+                            ${currentProduct.isNew && !isSaleItem ? `<span class="sale-badge" style="background: #b47c5e;">NEW</span>` : ''}
+                        </div>
+                        <div class="product-description">
+                            <div class="short-desc">${currentProduct.shortDesc || currentProduct.name}</div>
+                            <div class="full-desc">${currentProduct.description || "Experience the perfect blend of comfort and elegance with this premium piece from Tehzeeb."}</div>
+                        </div>
+                        ${currentProduct.sizes[0] !== 'Free' ? `
+                        <div class="size-selector">
+                            <label class="size-label">Select Size:</label>
+                            <div class="size-options" id="sizeOptions">${sizeOptionsHtml}</div>
+                        </div>
+                        ` : '<div class="size-selector"><p style="color: #b47c5e;"><i class="fas fa-cut"></i> Unstitched - Customize your fit</p></div>'}
+                        <div class="action-buttons">
+                            <button class="btn-add-to-cart" id="addToCartBtn"><i class="fas fa-shopping-cart"></i> Add to Cart</button>
+                            <button class="btn-buy-now" id="buyNowBtn"><i class="fas fa-bolt"></i> Buy Now</button>
+                        </div>
+                        <div class="additional-info">
+                            <div class="info-grid">
+                                <div class="info-item"><i class="fas fa-truck"></i> Delivery: 3-5 business days</div>
+                                <div class="info-item"><i class="fas fa-undo-alt"></i> Easy Returns: 7 days</div>
+                                <div class="info-item"><i class="fas fa-shield-alt"></i> Authenticity Guaranteed</div>
+                                <div class="info-item"><i class="fas fa-tag"></i> Category: ${currentProduct.category.charAt(0).toUpperCase() + currentProduct.category.slice(1)}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            bindProductEvents(currentProduct, galleryImages);
+            bindRelatedProducts();
+        }
+
+        function bindProductEvents(product, galleryImages) {
+            if (galleryImages.length > 1) {
+                document.querySelectorAll('.thumbnail').forEach(thumb => {
+                    thumb.addEventListener('click', () => {
+                        const imgUrl = thumb.dataset.img;
+                        document.getElementById('mainProductImage').src = imgUrl;
+                        document.querySelectorAll('.thumbnail').forEach(t => t.classList.remove('active'));
+                        thumb.classList.add('active');
+                    });
+                });
+            }
+
+            document.querySelectorAll('.size-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    document.querySelectorAll('.size-btn').forEach(b => b.classList.remove('selected'));
+                    btn.classList.add('selected');
+                    selectedSize = btn.dataset.size;
+                });
+            });
+
+            document.getElementById('addToCartBtn')?.addEventListener('click', () => addToCart(product, selectedSize));
+            document.getElementById('buyNowBtn')?.addEventListener('click', () => { window.location.href = 'checkout.html'; });
+        }
+
+        function bindRelatedProducts() {
+            const related = allProducts.filter(p => p.category === currentProduct.category && p.id !== currentProduct.id).slice(0, 4);
+            if (related.length > 0) {
+                const relatedSection = document.createElement('div');
+                relatedSection.className = 'related-section';
+                relatedSection.innerHTML = `
+                    <h2 class="related-title">You May Also Like</h2>
+                    <div class="related-grid">
+                        ${related.map(p => `
+                            <div class="related-card" onclick="window.location.href='product-detail.html?id=${p.id}'">
+                                <div class="related-img"><img src="${p.images?.[0] || p.image}" alt="${p.name}"></div>
+                                <div class="related-info"><div class="related-name">${p.name}</div><div class="related-price">Rs. ${p.price.toLocaleString()}</div></div>
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+                document.querySelector('.product-page .container').appendChild(relatedSection);
+            }
+        }
+
+        let cart = JSON.parse(localStorage.getItem('tehzeeb_cart') || '[]');
+        function updateCartBadge() { const badge = document.getElementById('cartCount'); if (badge) badge.innerText = cart.reduce((s, i) => s + i.quantity, 0); }
+        function updateWishlistBadge() { const wBadge = document.getElementById('wishlistCount'); if (wBadge) wBadge.innerText = JSON.parse(localStorage.getItem('tehzeeb_wishlist') || '[]').length; }
+        function addToCart(product, size, quantity = 1) {
+            const existing = cart.find(item => item.id === product.id && item.size === size);
+            if (existing) existing.quantity += quantity;
+            else cart.push({ ...product, size, quantity, cartId: Date.now() });
+            localStorage.setItem('tehzeeb_cart', JSON.stringify(cart));
+            updateCartBadge();
+        }
+
+        if (productId && !isNaN(productId)) renderProductPage();
+        else document.getElementById('productContainer').innerHTML = `<div class="error-message"><i class="fas fa-exclamation-circle"></i><h2>No Product Selected</h2><a href="index.html" class="btn-primary">Browse Products</a></div>`;
+
+        updateCartBadge();
+        updateWishlistBadge();
+
+        // Mobile sidebar functionality
+        const mobileSidebar = document.getElementById('mobileSidebar');
+        const mobileOverlay = document.getElementById('mobileOverlay');
+        const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+        const closeSidebarBtn = document.getElementById('closeSidebarBtn');
+        const mobileCollectionsToggleEl = document.getElementById('mobileCollectionsToggle');
+        const mobileDropdown = document.getElementById('mobileDropdown');
+        function openMobileMenu() { mobileSidebar.classList.add('open'); mobileOverlay.classList.add('active'); document.body.classList.add('sidebar-open'); }
+        function closeMobileMenu() { mobileSidebar.classList.remove('open'); mobileOverlay.classList.remove('active'); document.body.classList.remove('sidebar-open'); }
+        window.closeMobileMenu = closeMobileMenu;
+        if (mobileMenuToggle) mobileMenuToggle.addEventListener('click', openMobileMenu);
+        if (closeSidebarBtn) closeSidebarBtn.addEventListener('click', closeMobileMenu);
+        if (mobileOverlay) mobileOverlay.addEventListener('click', closeMobileMenu);
+        if (mobileCollectionsToggleEl) {
+            mobileCollectionsToggleEl.addEventListener('click', (e) => { e.preventDefault(); mobileDropdown.classList.toggle('show'); const icon = mobileCollectionsToggleEl.querySelector('i'); if (icon) icon.classList.toggle('rotated'); });
+        }
+        document.querySelectorAll('.mobile-nav-list a').forEach(link => link.addEventListener('click', closeMobileMenu));
+
+        // Header scroll effect
+        const header = document.querySelector("header");
+        window.addEventListener("scroll", () => { if (window.scrollY > 50) header.classList.add("scrolled"); else header.classList.remove("scrolled"); });
+
+        document.getElementById('subscribeBtn')?.addEventListener('click', () => { const email = document.getElementById('newsEmail')?.value; alert(email ? `Thanks for subscribing, ${email}!` : "Please enter email"); });
+    </script>
+</body>
+
+</html>

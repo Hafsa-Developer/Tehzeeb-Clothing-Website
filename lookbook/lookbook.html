@@ -1,0 +1,1113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=yes">
+    <title>Tehzeeb – Lookbook ’26 | Elegance in Every Thread</title>
+    <!-- Google Fonts + Font Awesome -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #fefaf5;
+            color: #2c2b28;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* Prevent body scroll when sidebar open */
+        body.sidebar-open {
+            overflow: hidden;
+        }
+
+        /* ========== RESPONSIVE NAVBAR (exactly same as index) ========== */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            transition: 0.3s ease;
+            background: transparent;
+            border-bottom: none;
+        }
+
+        header.scrolled {
+            background: #ffffffea !important;
+            backdrop-filter: blur(6px);
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+            border-bottom: 1px solid #f0e5dc;
+        }
+
+        /* Mobile navbar icons color black before scroll */
+        header .desktop-nav a,
+        header .nav-icons a {
+            color: #2c2b28;
+            transition: color 0.2s;
+        }
+
+        header.scrolled .desktop-nav a,
+        header.scrolled .nav-icons a {
+            color: #2c2b28;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 24px;
+            flex-wrap: wrap;
+        }
+
+        @media (max-width: 992px) {
+            .nav-container {
+                padding: 18px 20px 14px 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .nav-container {
+                padding: 20px 16px 12px 16px;
+            }
+        }
+
+        .logo {
+            font-size: 26px;
+            font-weight: 600;
+            letter-spacing: -0.5px;
+            background: linear-gradient(135deg, #b47c5e, #8b5a3c);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-decoration: none;
+        }
+
+        .desktop-nav ul {
+            display: flex;
+            gap: 20px;
+            list-style: none;
+        }
+
+        .desktop-nav a {
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: 0.2s;
+            white-space: nowrap;
+        }
+
+        .desktop-nav a:hover,
+        .desktop-nav a.active {
+            color: #b47c5e;
+        }
+
+        /* Highlight for Lookbook link */
+        .desktop-nav .lookbook-highlight>a {
+            color: #b47c5e;
+            font-weight: 600;
+            position: relative;
+        }
+
+        .desktop-nav .lookbook-highlight>a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: #b47c5e;
+            border-radius: 2px;
+        }
+
+        .dropdown-trigger {
+            position: relative;
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: 30px;
+            left: -10px;
+            background: white;
+            min-width: 160px;
+            border-radius: 14px;
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
+            list-style: none;
+            padding: 10px 0;
+            opacity: 0;
+            visibility: hidden;
+            transition: 0.2s;
+            z-index: 200;
+        }
+
+        .dropdown-trigger:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .dropdown-menu li a {
+            display: block;
+            padding: 8px 20px;
+            color: #2c2b28 !important;
+            transition: 0.2s;
+        }
+
+        .dropdown-menu li a:hover {
+            color: #b47c5e !important;
+            background: #fef5ed;
+        }
+
+        .sale-link {
+            color: #d9534f;
+            font-weight: 600;
+        }
+
+        .nav-icons {
+            display: flex;
+            gap: 18px;
+            align-items: center;
+        }
+
+        .nav-icons a {
+            font-size: 1.2rem;
+            position: relative;
+            text-decoration: none;
+        }
+
+        .count-badge {
+            position: absolute;
+            top: -10px;
+            right: -12px;
+            background: #b47c5e;
+            color: white;
+            font-size: 10px;
+            font-weight: 600;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .mobile-menu-icon {
+            display: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #2c2b28;
+            transition: color 0.2s;
+        }
+
+        .mobile-menu-icon:hover {
+            color: #b47c5e;
+        }
+
+        header.scrolled .mobile-menu-icon {
+            color: #2c2b28;
+        }
+
+        /* ========== FULLY FUNCTIONAL MOBILE SIDEBAR MENU ========== */
+        .mobile-sidebar {
+            position: fixed;
+            top: 0;
+            left: -100%;
+            width: 85%;
+            max-width: 320px;
+            height: 100vh;
+            background: white;
+            z-index: 2001;
+            transition: left 0.3s ease-in-out;
+            box-shadow: 2px 0 30px rgba(0, 0, 0, 0.1);
+            overflow-y: auto;
+            padding: 24px 20px;
+        }
+
+        .mobile-sidebar.open {
+            left: 0;
+        }
+
+        .mobile-sidebar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 32px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid #f0e5dc;
+        }
+
+        .mobile-sidebar-header .logo {
+            font-size: 24px;
+        }
+
+        .close-sidebar {
+            font-size: 28px;
+            cursor: pointer;
+            color: #8b735b;
+            transition: color 0.2s;
+        }
+
+        .close-sidebar:hover {
+            color: #b47c5e;
+        }
+
+        .mobile-nav-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .mobile-nav-list li {
+            margin-bottom: 8px;
+        }
+
+        .mobile-nav-list a {
+            display: block;
+            padding: 12px 0;
+            text-decoration: none;
+            color: #3e3a35;
+            font-weight: 500;
+            font-size: 1rem;
+            transition: color 0.2s;
+            border-bottom: 1px solid #f9f0e8;
+        }
+
+        .mobile-nav-list a:hover,
+        .mobile-nav-list a.active-mobile {
+            color: #b47c5e;
+        }
+
+        /* Highlight Lookbook in mobile */
+        .mobile-nav-list .lookbook-mobile-highlight>a {
+            color: #b47c5e;
+            font-weight: 600;
+        }
+
+        .mobile-dropdown {
+            margin: 8px 0 8px 16px;
+            list-style: none;
+            display: none;
+            padding-left: 12px;
+            border-left: 2px solid #f0e2d6;
+        }
+
+        .mobile-dropdown.show {
+            display: block;
+        }
+
+        .mobile-dropdown li a {
+            padding: 8px 0;
+            font-size: 0.9rem;
+            font-weight: 400;
+            border-bottom: none;
+        }
+
+        .mobile-collections-toggle {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            padding: 12px 0;
+            border-bottom: 1px solid #f9f0e8;
+        }
+
+        .mobile-collections-toggle span {
+            font-weight: 500;
+            color: #b47c5e;
+        }
+
+        .mobile-collections-toggle i {
+            transition: transform 0.2s;
+            color: #b47c5e;
+        }
+
+        .mobile-collections-toggle i.rotated {
+            transform: rotate(180deg);
+        }
+
+        .overlay-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: 0.3s;
+        }
+
+        .overlay-bg.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* search overlay */
+        .search-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(255, 248, 240, 0.98);
+            backdrop-filter: blur(8px);
+            padding: 20px;
+            z-index: 2000;
+            transform: translateY(-100%);
+            transition: 0.3s ease;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
+            flex-wrap: wrap;
+        }
+
+        .search-overlay.open {
+            transform: translateY(0);
+        }
+
+        .search-container {
+            width: 60%;
+            position: relative;
+        }
+
+        #globalSearchInput {
+            width: 100%;
+            padding: 14px 20px;
+            border-radius: 60px;
+            border: 1px solid #e2d4ca;
+            font-size: 1rem;
+            background: white;
+            outline: none;
+        }
+
+        .suggestions-dropdown {
+            background: white;
+            border-radius: 20px;
+            margin-top: 8px;
+            max-height: 280px;
+            overflow-y: auto;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            position: absolute;
+            width: 100%;
+            z-index: 2100;
+        }
+
+        .suggestions-dropdown div {
+            padding: 12px 20px;
+            cursor: pointer;
+            border-bottom: 1px solid #f0e5dc;
+        }
+
+        .suggestions-dropdown div:hover {
+            background: #faf2ea;
+        }
+
+        #closeSearchBtn {
+            background: none;
+            border: none;
+            font-size: 28px;
+            cursor: pointer;
+            color: #7f5e46;
+        }
+
+        /* ========== LOOKBOOK HERO / INTRO SECTION ========== */
+        .lookbook-intro {
+            text-align: center;
+            padding: 140px 24px 40px;
+            background: linear-gradient(to bottom, #fefaf5, #fcf6ef);
+        }
+
+        .breadcrumb-look {
+            font-size: 0.85rem;
+            color: #8b735b;
+            margin-bottom: 20px;
+            letter-spacing: 0.3px;
+        }
+
+        .breadcrumb-look a {
+            color: #b47c5e;
+            text-decoration: none;
+        }
+
+        .lookbook-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(3rem, 8vw, 5rem);
+            font-weight: 500;
+            color: #3e2c21;
+            letter-spacing: -0.02em;
+            margin-bottom: 16px;
+        }
+
+        .lookbook-tagline {
+            font-size: 1rem;
+            color: #9b7b62;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-weight: 400;
+        }
+
+        /* ========== MASONRY / EDITORIAL GRID ========== */
+        .masonry-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 24px 60px;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-auto-rows: auto;
+            gap: 20px;
+        }
+
+        .grid-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 24px;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+        }
+
+        .grid-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+            display: block;
+        }
+
+        .grid-item:hover img {
+            transform: scale(1.03);
+        }
+
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(2px);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .grid-item:hover .overlay {
+            opacity: 1;
+        }
+
+        .shop-look-btn {
+            background: white;
+            color: #2c2b28;
+            border: none;
+            padding: 12px 28px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            transition: 0.25s;
+            font-family: 'Inter', sans-serif;
+            transform: translateY(10px);
+            transition: transform 0.3s, background 0.2s;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .grid-item:hover .shop-look-btn {
+            transform: translateY(0);
+        }
+
+        .shop-look-btn:hover {
+            background: #b47c5e;
+            color: white;
+        }
+
+        /* Masonry specific spans */
+        .grid-item.large {
+            grid-column: span 2;
+            grid-row: span 2;
+            aspect-ratio: 1 / 1.2;
+        }
+
+        .grid-item.medium {
+            grid-column: span 2;
+            aspect-ratio: 16 / 9;
+        }
+
+        .grid-item.small {
+            aspect-ratio: 3 / 4;
+        }
+
+        .grid-item.tall {
+            grid-row: span 2;
+            aspect-ratio: 3 / 4;
+        }
+
+        .grid-item.wide {
+            grid-column: span 2;
+            aspect-ratio: 16 / 10;
+        }
+
+        /* ========== DETAIL SHOTS SECTION ========== */
+        .detail-shots {
+            max-width: 1400px;
+            margin: 20px auto 60px;
+            padding: 0 24px;
+        }
+
+        .detail-heading {
+            text-align: center;
+            margin-bottom: 48px;
+        }
+
+        .detail-heading h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            font-weight: 500;
+            color: #3e2c21;
+            letter-spacing: -0.3px;
+        }
+
+        .detail-heading p {
+            color: #9b7b62;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-top: 8px;
+        }
+
+        .detail-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .detail-card {
+            border-radius: 24px;
+            overflow: hidden;
+            background: #fffcf8;
+            transition: 0.3s;
+        }
+
+        .detail-card img {
+            width: 100%;
+            height: 380px;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .detail-card:hover img {
+            transform: scale(1.02);
+        }
+
+        .detail-caption {
+            padding: 20px 16px;
+            text-align: center;
+        }
+
+        .detail-caption h4 {
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: #b47c5e;
+            margin-bottom: 6px;
+        }
+
+        .detail-caption p {
+            font-size: 0.85rem;
+            color: #6b5a4c;
+            letter-spacing: 0.3px;
+        }
+
+        /* ========== LOOKBOOK CATEGORIES STRIP ========== */
+        .category-strip {
+            background: #fff6ef;
+            border-top: 1px solid #f0e2d6;
+            border-bottom: 1px solid #f0e2d6;
+            padding: 24px 0;
+            margin: 20px 0 40px;
+        }
+
+        .strip-container {
+            max-width: 900px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+
+        .strip-btn {
+            background: transparent;
+            border: none;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #5e4b3a;
+            padding: 8px 24px;
+            cursor: pointer;
+            transition: 0.2s;
+            font-family: 'Inter', sans-serif;
+            letter-spacing: 0.5px;
+            border-radius: 40px;
+        }
+
+        .strip-btn:hover {
+            color: #b47c5e;
+            background: #f9ede2;
+        }
+
+        /* ========== BOTTOM CTA SECTION ========== */
+        .bottom-cta {
+            text-align: center;
+            padding: 80px 24px;
+            background: linear-gradient(145deg, #fcf6ef, #fefaf5);
+            margin-top: 20px;
+        }
+
+        .bottom-cta h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            font-weight: 500;
+            color: #2c2b28;
+            margin-bottom: 28px;
+        }
+
+        .view-collections-btn {
+            background: #b47c5e;
+            color: white;
+            border: none;
+            padding: 14px 42px;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: 0.25s;
+            box-shadow: 0 4px 12px rgba(180, 124, 94, 0.3);
+        }
+
+        .view-collections-btn:hover {
+            background: #9b6648;
+            transform: translateY(-2px);
+        }
+
+        /* footer */
+        footer {
+            background: #1f1c19;
+            color: #cfc5bc;
+            padding: 48px 0 24px;
+            margin-top: 60px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 32px;
+        }
+
+        .footer-col h4 {
+            color: #f0e2d6;
+            margin-bottom: 18px;
+        }
+
+        .footer-col a,
+        .footer-col p {
+            color: #b7a99e;
+            text-decoration: none;
+            line-height: 1.8;
+            font-size: 0.9rem;
+        }
+
+        .newsletter {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .newsletter input {
+            padding: 12px;
+            border-radius: 40px;
+            border: none;
+            width: 100%;
+            max-width: 220px;
+        }
+
+        .newsletter button {
+            background: #b47c5e;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 40px;
+            color: white;
+            cursor: pointer;
+            width: fit-content;
+        }
+
+        .social-icons i {
+            font-size: 20px;
+            margin-right: 15px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .social-icons i:hover {
+            color: #b47c5e;
+        }
+
+        @media (max-width: 992px) {
+            .desktop-nav {
+                display: none;
+            }
+
+            .mobile-menu-icon {
+                display: block;
+            }
+
+            .nav-icons {
+                margin-top: 15px;
+                margin-bottom: 15px;
+            }
+
+            .masonry-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 16px;
+            }
+
+            .grid-item.large,
+            .grid-item.medium,
+            .grid-item.wide {
+                grid-column: span 1;
+            }
+
+            .grid-item.tall {
+                grid-row: span 1;
+            }
+
+            .strip-container {
+                gap: 20px;
+            }
+
+            .lookbook-intro {
+                padding-top: 120px;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .masonry-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .detail-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .strip-container {
+                flex-direction: column;
+                align-items: center;
+                gap: 12px;
+            }
+
+            .lookbook-intro {
+                padding-top: 110px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <div class="container nav-container">
+            <a href="/index.html" class="logo">Tehzeeb</a>
+            <nav class="desktop-nav">
+                <ul>
+                    <li><a href="/index.html">Home</a></li>
+                    <li><a href="/new-arrivals.html">New Arrivals</a></li>
+                    <li class="dropdown-trigger"><a href="#">Collections <i class="fas fa-chevron-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/collection(lawn).html">Lawn</a></li>
+                            <li><a href="/collection(pret).html">Pret</a></li>
+                            <li><a href="/collection(formal).html">Formal</a></li>
+                            <li><a href="/collection(unstitched).html">Unstitched</a></li>
+                        </ul>
+                    </li>
+                    <li class="lookbook-highlight"><a href="/lookbook/lookbook.html" class="active">Lookbook</a></li>
+                    <li><a href="/collection(sale).html" class="sale-link">Sale 🔥</a></li>
+                    <li><a href="/contact.html">Contact</a></li>
+                </ul>
+            </nav>
+            <div class="nav-icons">
+                <a href="#" id="searchIconBtn"><i class="fas fa-search"></i></a>
+                <a href="/wishlist.html"><i class="fas fa-heart"></i><span id="wishlistCount"
+                        class="count-badge">0</span></a>
+                <a href="/cart.html"><i class="fas fa-shopping-cart"></i><span id="cartCount"
+                        class="count-badge">0</span></a>
+            </div>
+            <div class="mobile-menu-icon" id="mobileMenuToggle"><i class="fas fa-bars"></i></div>
+        </div>
+        <div id="searchOverlay" class="search-overlay">
+            <div class="search-container">
+                <input type="text" id="globalSearchInput" placeholder="Search looks, collections...">
+                <div id="searchSuggestions" class="suggestions-dropdown"></div>
+            </div>
+            <button id="closeSearchBtn"><i class="fas fa-times"></i></button>
+        </div>
+    </header>
+
+    <!-- FULLY FUNCTIONAL MOBILE SIDEBAR MENU -->
+    <div class="overlay-bg" id="mobileOverlay"></div>
+    <div class="mobile-sidebar" id="mobileSidebar">
+        <div class="mobile-sidebar-header">
+            <a href="/index.html" class="logo" onclick="closeMobileMenu()">Tehzeeb</a>
+            <i class="fas fa-times close-sidebar" id="closeSidebarBtn"></i>
+        </div>
+        <ul class="mobile-nav-list">
+            <li><a href="/index.html" onclick="closeMobileMenu()">Home</a></li>
+            <li><a href="/new-arrivals.html" onclick="closeMobileMenu()">New Arrivals</a></li>
+            <li>
+                <div class="mobile-collections-toggle" id="mobileCollectionsToggle">
+                    Collections
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <ul class="mobile-dropdown" id="mobileDropdown">
+                    <li><a href="/collection(lawn).html" onclick="closeMobileMenu()">Lawn</a></li>
+                    <li><a href="/collection(pret).html" onclick="closeMobileMenu()">Pret</a></li>
+                    <li><a href="/collection(formal).html" onclick="closeMobileMenu()">Formal</a></li>
+                    <li><a href="/collection(unstitched).html" onclick="closeMobileMenu()">Unstitched</a></li>
+                </ul>
+            </li>
+            <li class="lookbook-mobile-highlight"><a href="/lookbook/lookbook.html" onclick="closeMobileMenu()">Lookbook</a></li>
+            <li><a href="/collection(sale).html" onclick="closeMobileMenu()">Sale 🔥</a></li>
+            <li><a href="/contact.html" onclick="closeMobileMenu()">Contact</a></li>
+        </ul>
+    </div>
+
+    <!-- Intro Section: Breadcrumb + Title + Tagline -->
+    <div class="lookbook-intro">
+        <div class="breadcrumb-look">
+            <a href="/index.html">Home</a> / <span>Lookbook</span>
+        </div>
+        <h1 class="lookbook-title">Lookbook ’26</h1>
+        <div class="lookbook-tagline">Elegance in Every Thread</div>
+    </div>
+
+    <!-- MASONRY / EDITORIAL GRID (Magazine style) -->
+    <div class="masonry-grid" id="masonryGrid">
+        <div class="grid-item large" data-look="lawn" data-product-id="101">
+            <img src="/lookbook/look1.jpg" alt="Lawn Summer Dream">
+            <div class="overlay"><button class="shop-look-btn">Shop this Look</button></div>
+        </div>
+        <div class="grid-item small" data-look="pret" data-product-id="102">
+            <img src="/lookbook/look2.jpg" alt="Pret Chiffon">
+            <div class="overlay"><button class="shop-look-btn">Shop this Look</button></div>
+        </div>
+        <div class="grid-item tall" data-look="formal" data-product-id="103">
+            <img src="/lookbook/look3.jpg" alt="Formal Silk Ensemble">
+            <div class="overlay"><button class="shop-look-btn">Shop this Look</button></div>
+        </div>
+        <div class="grid-item wide" data-look="lawn" data-product-id="104">
+            <img src="/lookbook/look4.jpg" alt="Lawn Duo">
+            <div class="overlay"><button class="shop-look-btn">Shop this Look</button></div>
+        </div>
+        <div class="grid-item medium" data-look="unstitched" data-product-id="105">
+            <img src="/lookbook/look5.jpg" alt="Unstitched Heritage">
+            <div class="overlay"><button class="shop-look-btn">Shop this Look</button></div>
+        </div>
+        <div class="grid-item small" data-look="pret" data-product-id="106">
+            <img src="/lookbook/look6.jpg" alt="Pret Digital Print">
+            <div class="overlay"><button class="shop-look-btn">Shop this Look</button></div>
+        </div>
+        <div class="grid-item large" data-look="formal" data-product-id="107">
+            <img src="/lookbook/look7.jpg" alt="Velvet Formal">
+            <div class="overlay"><button class="shop-look-btn">Shop this Look</button></div>
+        </div>
+        <div class="grid-item wide" data-look="lawn" data-product-id="108">
+            <img src="/lookbook/look8.jpg" alt="Lawn Embroidered">
+            <div class="overlay"><button class="shop-look-btn">Shop this Look</button></div>
+        </div>
+    </div>
+
+    <!-- DETAIL SHOTS SECTION -->
+    <div class="detail-shots">
+        <div class="detail-heading">
+            <h3>Artistry in Every Stitch</h3>
+            <p>Intricate details that define Tehzeeb</p>
+        </div>
+        <div class="detail-grid">
+            <div class="detail-card">
+                <img src="/lookbook/lookmain1.jpg" alt="Embroidery detail">
+                <div class="detail-caption">
+                    <h4>Hand Embroidered Motifs</h4>
+                    <p>Delicate threadwork inspired by Mughal gardens</p>
+                </div>
+            </div>
+            <div class="detail-card">
+                <img src="/lookbook/lookmain2.jpg" alt="Fabric texture">
+                <div class="detail-caption">
+                    <h4>Luxury Fabric Weaves</h4>
+                    <p>Premium lawn, raw silk & organza blends</p>
+                </div>
+            </div>
+            <div class="detail-card">
+                <img src="/lookbook/lookmain3.jpg" alt="Sleeve detail">
+                <div class="detail-caption">
+                    <h4>Signature Sleeve & Dupatta</h4>
+                    <p>Intricate piping, gota & delicate falls</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- LOOKBOOK CATEGORIES STRIP -->
+    <div class="category-strip">
+        <div class="strip-container">
+            <button class="strip-btn" data-section="lawn">🌿 Lawn Edit</button>
+            <button class="strip-btn" data-section="formal">✨ Formal Edit</button>
+            <button class="strip-btn" data-section="pret">🌸 Pret Edit</button>
+        </div>
+    </div>
+
+    <!-- BOTTOM CTA -->
+    <div class="bottom-cta">
+        <h2>Discover the Collection Behind the Looks</h2>
+        <button class="view-collections-btn" id="viewCollectionsBtn">View All Collections</button>
+    </div>
+
+    <footer>
+        <div class="container footer-grid">
+            <div class="footer-col">
+                <h4>Tehzeeb</h4>
+                <p>Elegance in every thread, crafted with tradition & modernity.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Quick Links</h4>
+                <a href="/index.html">Home</a><br>
+                <a href="/new-arrivals.html">New Arrivals</a><br>
+                <a href="/collection(sale).html">Sale</a><br>
+                <a href="/lookbook/lookbook.html">Lookbook</a>
+            </div>
+            <div class="footer-col">
+                <h4>Contact</h4>
+                <p><i class="fas fa-phone"></i> +92 300 1234567</p>
+                <p><i class="fas fa-envelope"></i> tehzeebbyk@gmail.com</p>
+                <p>Lahore, Pakistan</p>
+            </div>
+            <div class="footer-col newsletter">
+                <h4>Newsletter</h4>
+                <input type="email" id="newsEmail" placeholder="Your email">
+                <button id="subscribeBtn">Subscribe</button>
+                <div class="social-icons" style="margin-top:15px">
+                    <a href="https://www.instagram.com/tehzeebbyk" target="_blank"><i class="fab fa-instagram"></i></a>
+                    <a href="https://facebook.com/share/1ATjktRQsa" target="_blank"><i class="fab fa-facebook"></i></a>
+                    <a href="https://www.tiktok.com/@tehzeebbyk" target="_blank"><i class="fab fa-tiktok"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="container" style="text-align:center; margin-top:40px">
+            <p>© 2025 Tehzeeb — All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Cart & Wishlist
+        let cart = JSON.parse(localStorage.getItem('tehzeeb_cart') || '[]');
+        let wishlist = JSON.parse(localStorage.getItem('tehzeeb_wishlist') || '[]');
+
+        function updateCartBadge() { const badge = document.getElementById('cartCount'); if (badge) badge.innerText = cart.reduce((sum, item) => sum + item.quantity, 0); }
+        function updateWishlistBadge() { const wBadge = document.getElementById('wishlistCount'); if (wBadge) wBadge.innerText = wishlist.length; }
+
+        updateCartBadge();
+        updateWishlistBadge();
+
+        // Handle "Shop this Look" buttons
+        document.querySelectorAll('.shop-look-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const gridItem = btn.closest('.grid-item');
+                const productId = gridItem?.dataset.productId || '101';
+                window.location.href = `/product-detail.html?id=${productId}`;
+            });
+        });
+
+        // Category Strip: scroll to relevant section
+        function scrollToLookCategory(category) {
+            const items = document.querySelectorAll('.grid-item');
+            for (let item of items) {
+                if (item.dataset.look === category) {
+                    item.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    item.style.transition = 'box-shadow 0.2s';
+                    item.style.boxShadow = '0 0 0 3px #b47c5e';
+                    setTimeout(() => { item.style.boxShadow = ''; }, 1500);
+                    break;
+                }
+            }
+        }
+
+        document.querySelectorAll('.strip-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const section = btn.dataset.section;
+                if (section === 'lawn') scrollToLookCategory('lawn');
+                else if (section === 'formal') scrollToLookCategory('formal');
+                else if (section === 'pret') scrollToLookCategory('pret');
+            });
+        });
+
+        document.getElementById('viewCollectionsBtn')?.addEventListener('click', () => { window.location.href = "/collection.html"; });
+        document.getElementById('subscribeBtn')?.addEventListener('click', () => { const email = document.getElementById('newsEmail')?.value; alert(email ? `✨ Thanks for subscribing, ${email}!` : "Please enter a valid email."); });
+
+        // Mobile sidebar functionality
+        const mobileSidebar = document.getElementById('mobileSidebar');
+        const mobileOverlay = document.getElementById('mobileOverlay');
+        const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+        const closeSidebarBtn = document.getElementById('closeSidebarBtn');
+        const mobileCollectionsToggleEl = document.getElementById('mobileCollectionsToggle');
+        const mobileDropdown = document.getElementById('mobileDropdown');
+        function openMobileMenu() { mobileSidebar.classList.add('open'); mobileOverlay.classList.add('active'); document.body.classList.add('sidebar-open'); }
+        function closeMobileMenu() { mobileSidebar.classList.remove('open'); mobileOverlay.classList.remove('active'); document.body.classList.remove('sidebar-open'); }
+        window.closeMobileMenu = closeMobileMenu;
+        if (mobileMenuToggle) mobileMenuToggle.addEventListener('click', openMobileMenu);
+        if (closeSidebarBtn) closeSidebarBtn.addEventListener('click', closeMobileMenu);
+        if (mobileOverlay) mobileOverlay.addEventListener('click', closeMobileMenu);
+        if (mobileCollectionsToggleEl) {
+            mobileCollectionsToggleEl.addEventListener('click', (e) => { e.preventDefault(); mobileDropdown.classList.toggle('show'); const icon = mobileCollectionsToggleEl.querySelector('i'); if (icon) icon.classList.toggle('rotated'); });
+        }
+        document.querySelectorAll('.mobile-nav-list a').forEach(link => link.addEventListener('click', closeMobileMenu));
+
+        // Header scroll effect
+        const header = document.querySelector("header");
+        window.addEventListener("scroll", () => { if (window.scrollY > 50) header.classList.add("scrolled"); else header.classList.remove("scrolled"); });
+
+        // Search functionality
+        const searchInput = document.getElementById('globalSearchInput');
+        const suggestionsDiv = document.getElementById('searchSuggestions');
+        const lookbookItems = [
+            { name: "Lawn Summer Dream", id: 101 }, { name: "Pret Chiffon", id: 102 }, { name: "Formal Silk Ensemble", id: 103 },
+            { name: "Lawn Duo", id: 104 }, { name: "Unstitched Heritage", id: 105 }, { name: "Pret Digital Print", id: 106 },
+            { name: "Velvet Formal", id: 107 }, { name: "Lawn Embroidered", id: 108 }
+        ];
+        if (searchInput) {
+            searchInput.addEventListener('input', (e) => {
+                const val = e.target.value.toLowerCase();
+                if (!val.trim()) { suggestionsDiv.innerHTML = ''; return; }
+                const filtered = lookbookItems.filter(p => p.name.toLowerCase().includes(val));
+                suggestionsDiv.innerHTML = filtered.slice(0, 5).map(p => `<div onclick="window.location.href='/product-detail.html?id=${p.id}'">${p.name}</div>`).join('');
+            });
+        }
+        document.getElementById('searchIconBtn')?.addEventListener('click', () => document.getElementById('searchOverlay')?.classList.add('open'));
+        document.getElementById('closeSearchBtn')?.addEventListener('click', () => document.getElementById('searchOverlay')?.classList.remove('open'));
+    </script>
+</body>
+
+</html>

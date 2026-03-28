@@ -1,0 +1,1114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=yes">
+    <title>Order Confirmation – Tehzeeb</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background: #fefaf5;
+            color: #2c2b28;
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+        }
+
+        body.sidebar-open {
+            overflow: hidden;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* ========== NAVBAR (same theme) ========== */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            transition: 0.3s ease;
+            background: transparent;
+        }
+
+        header.scrolled {
+            background: #ffffffea !important;
+            backdrop-filter: blur(6px);
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+            border-bottom: 1px solid #f0e5dc;
+        }
+
+        header .desktop-nav a,
+        header .nav-icons a {
+            color: black;
+            transition: color 0.2s;
+        }
+
+        header.scrolled .desktop-nav a,
+        header.scrolled .nav-icons a {
+            color: #2c2b28;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 24px;
+            flex-wrap: wrap;
+        }
+
+        @media (max-width: 992px) {
+            .nav-container {
+                padding: 18px 20px 14px 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .nav-container {
+                padding: 20px 16px 12px 16px;
+            }
+        }
+
+        .logo {
+            font-size: 26px;
+            font-weight: 600;
+            letter-spacing: -0.5px;
+            background: linear-gradient(135deg, #b47c5e, #8b5a3c);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-decoration: none;
+        }
+
+        .desktop-nav ul {
+            display: flex;
+            gap: 20px;
+            list-style: none;
+        }
+
+        .desktop-nav a {
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: 0.2s;
+            white-space: nowrap;
+        }
+
+        .desktop-nav a:hover,
+        .desktop-nav a.active {
+            color: #b47c5e;
+        }
+
+        .sale-link {
+            color: #d9534f;
+            font-weight: 600;
+        }
+
+        .dropdown-trigger {
+            position: relative;
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: 30px;
+            left: -10px;
+            background: white;
+            min-width: 160px;
+            border-radius: 14px;
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
+            list-style: none;
+            padding: 10px 0;
+            opacity: 0;
+            visibility: hidden;
+            transition: 0.2s;
+            z-index: 200;
+        }
+
+        .dropdown-trigger:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .dropdown-menu li a {
+            display: block;
+            padding: 8px 20px;
+            color: #2c2b28 !important;
+        }
+
+        .nav-icons {
+            display: flex;
+            gap: 18px;
+            align-items: center;
+            margin-top: 14px;
+            margin-bottom: 14px;;
+        }
+
+        .nav-icons a {
+            font-size: 1.2rem;
+            position: relative;
+            text-decoration: none;
+        }
+
+        .count-badge {
+            position: absolute;
+            top: -10px;
+            right: -12px;
+            background: #b47c5e;
+            color: white;
+            font-size: 10px;
+            font-weight: 600;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .mobile-menu-icon {
+            display: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: black;
+        }
+
+        header.scrolled .mobile-menu-icon {
+            color: #2c2b28;
+        }
+
+        /* Mobile Sidebar */
+        .mobile-sidebar {
+            position: fixed;
+            top: 0;
+            left: -100%;
+            width: 85%;
+            max-width: 320px;
+            height: 100vh;
+            background: white;
+            z-index: 2001;
+            transition: left 0.3s ease-in-out;
+            box-shadow: 2px 0 30px rgba(0, 0, 0, 0.1);
+            overflow-y: auto;
+            padding: 24px 20px;
+        }
+
+        .mobile-sidebar.open {
+            left: 0;
+        }
+
+        .mobile-sidebar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 32px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid #f0e5dc;
+        }
+
+        .close-sidebar {
+            font-size: 28px;
+            cursor: pointer;
+            color: #8b735b;
+        }
+
+        .mobile-nav-list {
+            list-style: none;
+        }
+
+        .mobile-nav-list li {
+            margin-bottom: 8px;
+        }
+
+        .mobile-nav-list a {
+            display: block;
+            padding: 12px 0;
+            text-decoration: none;
+            color: #3e3a35;
+            font-weight: 500;
+            border-bottom: 1px solid #f9f0e8;
+        }
+
+        .mobile-nav-list a:hover,
+        .mobile-nav-list a.active-mobile {
+            color: #b47c5e;
+        }
+
+        .mobile-dropdown {
+            margin: 8px 0 8px 16px;
+            list-style: none;
+            display: none;
+            padding-left: 12px;
+            border-left: 2px solid #f0e2d6;
+        }
+
+        .mobile-dropdown.show {
+            display: block;
+        }
+
+        .mobile-collections-toggle {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            padding: 12px 0;
+            border-bottom: 1px solid #f9f0e8;
+        }
+
+        .mobile-collections-toggle span {
+            font-weight: 500;
+            color: #b47c5e;
+        }
+
+        .mobile-collections-toggle i.rotated {
+            transform: rotate(180deg);
+        }
+
+        .overlay-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: 0.3s;
+        }
+
+        .overlay-bg.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Search Overlay */
+        .search-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(255, 248, 240, 0.98);
+            backdrop-filter: blur(8px);
+            padding: 20px;
+            z-index: 2000;
+            transform: translateY(-100%);
+            transition: 0.3s ease;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .search-overlay.open {
+            transform: translateY(0);
+        }
+
+        .search-container {
+            width: 60%;
+            position: relative;
+        }
+
+        #globalSearchInput {
+            width: 100%;
+            padding: 14px 20px;
+            border-radius: 60px;
+            border: 1px solid #e2d4ca;
+            font-size: 1rem;
+            background: white;
+            outline: none;
+        }
+
+        .suggestions-dropdown {
+            background: white;
+            border-radius: 20px;
+            margin-top: 8px;
+            max-height: 280px;
+            overflow-y: auto;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            position: absolute;
+            width: 100%;
+            z-index: 2100;
+        }
+
+        .suggestions-dropdown div {
+            padding: 12px 20px;
+            cursor: pointer;
+            border-bottom: 1px solid #f0e5dc;
+        }
+
+        /* Buttons */
+        .btn-primary {
+            background: #b47c5e;
+            color: white;
+            border: none;
+            padding: 14px 36px;
+            border-radius: 40px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+            display: inline-block;
+            text-decoration: none;
+            font-size: 1rem;
+        }
+
+        .btn-primary:hover {
+            background: #9a674b;
+            transform: scale(1.02);
+        }
+
+        .btn-outline {
+            border: 1.5px solid #b47c5e;
+            background: transparent;
+            padding: 12px 32px;
+            border-radius: 40px;
+            color: #b47c5e;
+            font-weight: 500;
+            text-decoration: none;
+            transition: 0.2s;
+            display: inline-block;
+        }
+
+        .btn-outline:hover {
+            background: #b47c5e;
+            color: white;
+        }
+
+        /* Success Page Specific */
+        .success-hero {
+            background: linear-gradient(135deg, #fef3e9 0%, #fff5ed 100%);
+            padding: 140px 0 60px;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .success-card {
+            max-width: 650px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 48px;
+            padding: 48px 40px;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+            animation: fadeInUp 0.5s ease;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .success-icon {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, #4caf50, #45a049);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 24px;
+            animation: scaleIn 0.4s ease 0.2s both;
+        }
+
+        @keyframes scaleIn {
+            from {
+                transform: scale(0);
+                opacity: 0;
+            }
+
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .success-icon i {
+            font-size: 52px;
+            color: white;
+        }
+
+        .success-title {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #2c6e2c;
+            margin-bottom: 16px;
+        }
+
+        .thankyou-message {
+            font-size: 1.1rem;
+            color: #6b5a4e;
+            margin-bottom: 24px;
+            line-height: 1.6;
+        }
+
+        .order-id-container {
+            background: #fef5ef;
+            padding: 20px;
+            border-radius: 28px;
+            margin: 28px 0;
+            border: 1px solid #f0e2d6;
+        }
+
+        .order-id-label {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #b47c5e;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .order-id-value {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: #3e2c21;
+            font-family: monospace;
+            letter-spacing: 1px;
+            word-break: break-all;
+        }
+
+        .order-id-value i {
+            font-size: 1.3rem;
+            color: #b47c5e;
+            margin-right: 8px;
+        }
+
+        .info-message {
+            background: #e8f5e9;
+            padding: 16px;
+            border-radius: 24px;
+            margin: 24px 0;
+            font-size: 0.9rem;
+            color: #2c6e2c;
+        }
+
+        .info-message i {
+            margin-right: 8px;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 32px;
+        }
+
+        .delivery-note {
+            margin-top: 24px;
+            padding-top: 24px;
+            border-top: 1px solid #f0e5dc;
+            font-size: 0.85rem;
+            color: #8b735b;
+        }
+
+        .delivery-note i {
+            color: #b47c5e;
+            margin-right: 6px;
+        }
+
+        /* Recommended Products Section */
+        .recommended-section {
+            margin: 60px 0 80px;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #3e2c21;
+            margin-bottom: 40px;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 28px;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 24px;
+            overflow: hidden;
+            transition: 0.25s;
+            box-shadow: 0 5px 12px rgba(0, 0, 0, 0.03);
+            cursor: pointer;
+            text-decoration: none;
+            display: block;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -12px rgba(0, 0, 0, 0.1);
+        }
+
+        .product-img {
+            height: 260px;
+            background: #f5ede5;
+            overflow: hidden;
+        }
+
+        .product-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: 0.3s;
+        }
+
+        .product-card:hover .product-img img {
+            transform: scale(1.03);
+        }
+
+        .product-info {
+            padding: 16px;
+        }
+
+        .product-title {
+            font-weight: 600;
+            margin-bottom: 6px;
+            font-size: 1rem;
+            color: #2c2b28;
+        }
+
+        .product-price {
+            color: #b47c5e;
+            font-weight: 600;
+            margin: 8px 0;
+        }
+
+        footer {
+            background: #1f1c19;
+            color: #cfc5bc;
+            padding: 48px 0 24px;
+            margin-top: 60px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 32px;
+        }
+
+        .footer-col h4 {
+            color: #f0e2d6;
+            margin-bottom: 18px;
+        }
+
+        .footer-col a,
+        .footer-col p {
+            color: #b7a99e;
+            text-decoration: none;
+            line-height: 1.8;
+            font-size: 0.9rem;
+        }
+
+        .newsletter {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .newsletter input {
+            padding: 12px;
+            border-radius: 40px;
+            border: none;
+            max-width: 220px;
+        }
+
+        .newsletter button {
+            background: #b47c5e;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 40px;
+            color: white;
+            cursor: pointer;
+        }
+
+        .social-icons i {
+            font-size: 20px;
+            margin-right: 15px;
+            cursor: pointer;
+        }
+
+        .social-icons i:hover {
+            color: #b47c5e;
+        }
+
+        @media (max-width: 992px) {
+            .desktop-nav {
+                display: none;
+            }
+
+            .mobile-menu-icon {
+                display: block;
+            }
+
+            .search-container {
+                width: 70%;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 16px;
+            }
+
+            .success-card {
+                padding: 32px 24px;
+                margin: 0 16px;
+            }
+
+            .success-title {
+                font-size: 1.6rem;
+            }
+
+            .order-id-value {
+                font-size: 1.2rem;
+            }
+
+            .action-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .btn-primary,
+            .btn-outline {
+                width: 100%;
+                text-align: center;
+            }
+
+            .product-grid {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+                gap: 16px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <div class="container nav-container">
+            <a href="index.html" class="logo">Tehzeeb</a>
+            <nav class="desktop-nav">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="new-arrivals.html">New Arrivals</a></li>
+                    <li class="dropdown-trigger"><a href="#">Collections <i class="fas fa-chevron-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="collection(lawn).html">Lawn</a></li>
+                            <li><a href="collection(pret).html">Pret</a></li>
+                            <li><a href="collection(formal).html">Formal</a></li>
+                            <li><a href="collection(unstitched).html">Unstitched</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="collection(sale).html" class="sale-link">Sale 🔥</a></li>
+                    <li><a href="/lookbook/lookbook.html">Lookbook</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+            <div class="nav-icons">
+                <a href="#" id="searchIconBtn"><i class="fas fa-search"></i></a>
+                <a href="wishlist.html"><i class="fas fa-heart"></i><span id="wishlistCount"
+                        class="count-badge">0</span></a>
+                <a href="cart.html"><i class="fas fa-shopping-cart"></i><span id="cartCount"
+                        class="count-badge">0</span></a>
+            </div>
+            <div class="mobile-menu-icon" id="mobileMenuToggle"><i class="fas fa-bars"></i></div>
+        </div>
+        <div id="searchOverlay" class="search-overlay">
+            <div class="search-container">
+                <input type="text" id="globalSearchInput" placeholder="Search lawn, pret, formal..." autocomplete="off">
+                <div id="searchSuggestions" class="suggestions-dropdown"></div>
+            </div>
+            <button id="closeSearchBtn"><i class="fas fa-times"></i></button>
+        </div>
+    </header>
+
+    <!-- Mobile Sidebar -->
+    <div class="overlay-bg" id="mobileOverlay"></div>
+    <div class="mobile-sidebar" id="mobileSidebar">
+        <div class="mobile-sidebar-header">
+            <a href="index.html" class="logo" onclick="closeMobileMenu()">Tehzeeb</a>
+            <i class="fas fa-times close-sidebar" id="closeSidebarBtn"></i>
+        </div>
+        <ul class="mobile-nav-list">
+            <li><a href="index.html" onclick="closeMobileMenu()">Home</a></li>
+            <li><a href="new-arrivals.html" onclick="closeMobileMenu()">New Arrivals</a></li>
+            <li>
+                <div class="mobile-collections-toggle" id="mobileCollectionsToggle">
+                    Collections <i class="fas fa-chevron-down"></i>
+                </div>
+                <ul class="mobile-dropdown" id="mobileDropdown">
+                    <li><a href="collection(lawn).html" onclick="closeMobileMenu()">Lawn</a></li>
+                    <li><a href="collection(pret).html" onclick="closeMobileMenu()">Pret</a></li>
+                    <li><a href="collection(formal).html" onclick="closeMobileMenu()">Formal</a></li>
+                    <li><a href="collection(unstitched).html" onclick="closeMobileMenu()">Unstitched</a></li>
+                </ul>
+            </li>
+            <li><a href="collection(sale).html" onclick="closeMobileMenu()">Sale 🔥</a></li>
+            <li><a href="/lookbook/lookbook.html" onclick="closeMobileMenu()">Lookbook</a></li>
+            <li><a href="contact.html" onclick="closeMobileMenu()">Contact</a></li>
+        </ul>
+    </div>
+
+    <main>
+        <div class="success-hero">
+            <div class="container">
+                <div class="success-card" id="successCard">
+                    <div class="success-icon">
+                        <i class="fas fa-check"></i>
+                    </div>
+                    <h1 class="success-title">Order Placed Successfully! 🎉</h1>
+                    <p class="thankyou-message" id="thankyouMessage">
+                        Thank you for shopping with Tehzeeb. Your order has been received and will be processed soon.
+                    </p>
+
+                    <div id="orderIdContainer" class="order-id-container" style="display: none;">
+                        <div class="order-id-label">ORDER NUMBER</div>
+                        <div class="order-id-value">
+                            <i class="fas fa-receipt"></i>
+                            <span id="orderIdValue"></span>
+                        </div>
+                    </div>
+
+                    <div class="info-message" id="infoMessage">
+                        <i class="fas fa-truck"></i>
+                        Your order will be delivered within 3-5 business days. You will receive a confirmation SMS
+                        shortly.
+                    </div>
+
+                    <div class="action-buttons">
+                        <a href="collection.html" class="btn-primary" id="continueShoppingBtn">
+                            <i class="fas fa-shopping-bag"></i> Continue Shopping
+                        </a>
+                        <a href="index.html" class="btn-outline" id="homeBtn">
+                            <i class="fas fa-home"></i> Back to Home
+                        </a>
+                    </div>
+
+                    <div class="delivery-note">
+                        <i class="fas fa-credit-card"></i> Payment Method: Cash on Delivery (COD)
+                        <br>
+                        <i class="fas fa-envelope"></i> Order confirmation email has been sent to your registered email
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recommended Products Section -->
+        <div class="container recommended-section">
+            <h2 class="section-title">You May Also Like ✨</h2>
+            <div class="product-grid" id="recommendedGrid"></div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container footer-grid">
+            <div class="footer-col">
+                <h4>Tehzeeb</h4>
+                <p>Elegance in every thread, crafted with tradition & modernity.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Quick Links</h4><a href="index.html">Home</a><br><a href="new-arrivals.html">New Arrivals</a><br><a
+                    href="collection(sale).html">Sale</a><br><a href="/lookbook/lookbook.html">Lookbook</a>
+            </div>
+            <div class="footer-col">
+                <h4>Contact</h4>
+                <p><i class="fas fa-phone"></i> +92 300 1234567</p>
+                <p><i class="fas fa-envelope"></i> tehzeebbyk@gmail.com</p>
+                <p>Lahore, Pakistan</p>
+            </div>
+            <div class="footer-col newsletter">
+                <h4>Newsletter</h4><input type="email" id="newsEmail" placeholder="Your email"><button
+                    id="subscribeBtn">Subscribe</button>
+                <div class="social-icons"><a href="https://www.instagram.com/tehzeebbyk" target="_blank"><i
+                            class="fab fa-instagram"></i></a><a href="https://facebook.com/share/1ATjktRQsa"
+                        target="_blank"><i class="fab fa-facebook"></i></a><a href="https://www.tiktok.com/@tehzeebbyk"
+                        target="_blank"><i class="fab fa-tiktok"></i></a></div>
+            </div>
+        </div>
+        <div class="container" style="text-align:center; margin-top:40px">
+            <p>© 2025 Tehzeeb — All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+         // ---------- PRODUCT DATABASE (extended to match realistic categories) ----------
+            const allProducts = [
+                // Lawn Products (0 angle pictures - just front view)
+                { id: 1, name: "Spring Lawn Embroidered", price: 4990, originalPrice: 7990, category: "lawn", image: "/images/lawn1.jpg", sizes: ["S", "M", "L", "XL"], isNew: true, description: "Breathable lawn fabric with intricate floral embroidery. Perfect for summer days and casual gatherings.", shortDesc: "Premium quality lawn with delicate embroidery", images: ["/images/lawn1.jpg"] },
+                { id: 2, name: "Lawn Chiffon Duo", price: 5490, originalPrice: 7990, category: "lawn", image: "/images/lawn2.jpg", sizes: ["S", "M", "L", "XL"], isNew: false, description: "Lightweight lawn shirt paired with a sheer chiffon dupatta. Stay stylish and cool all summer long.", shortDesc: "Lawn shirt with chiffon dupatta", images: ["/images/lawn2.jpg"] },
+                { id: 3, name: "Embroidered Lawn Suit", price: 7990, originalPrice: 9990, category: "lawn", image: "/images/lawn3.jpg", sizes: ["S", "M", "L"], isNew: true, description: "Intricately embroidered lawn suit with modern cut. Perfect for festive occasions.", shortDesc: "Heavy embroidered lawn suit", images: ["/images/lawn3.jpg"] },
+                { id: 4, name: "Lawn Summer Floral", price: 4490, originalPrice: 5990, category: "lawn", image: "/images/lawn4.jpg", sizes: ["S", "M", "L", "XL"], isNew: true, description: "Vibrant floral prints on premium lawn fabric. Lightweight and breathable.", shortDesc: "Floral printed lawn suit", images: ["/images/lawn4.jpg"] },
+
+                // Pret Products (1 angle picture)
+                { id: 5, name: "Digital Printed Pret", price: 5990, originalPrice: 8990, category: "pret", image: "/images/pretpink1.jpg", sizes: ["S", "M", "L", "XL"], isNew: true, description: "Contemporary digital print with modern silhouette. Perfect for festive occasions.", shortDesc: "Ready-to-wear digital print", images: ["/images/pretpink1.jpg", "/images/pretpink2.jpg"] },
+                { id: 6, name: "Chiffon Pret Shirt", price: 6990, originalPrice: 9990, category: "pret", image: "/images/pretbrown1.jpg", sizes: ["S", "M", "L"], isNew: true, description: "Elegant chiffon pret shirt with delicate details. Lightweight and stylish.", shortDesc: "Chiffon pret shirt", images: ["/images/pretbrown1.jpg", "/images/pretbrown2.jpg"] },
+                { id: 7, name: "Pret Jacquard Kurta", price: 8490, originalPrice: 11990, category: "pret", image: "/images/pretgrey1.jpg", sizes: ["S", "M", "L"], isNew: false, description: "Luxurious jacquard kurta with modern design. Perfect for semi-formal events.", shortDesc: "Jacquard woven kurta", images: ["/images/pretgrey1.jpg", "/images/pretgrey2.jpg"] },
+                { id: 8, name: "Embroidered Pret Dupatta", price: 7990, originalPrice: 10990, category: "pret", image: "/images/pretyellow1.jpg", sizes: ["S", "M", "L", "XL"], isNew: true, description: "Beautifully embroidered pret dupatta set. Adds elegance to any outfit.", shortDesc: "Embroidered dupatta set", images: ["/images/pretyellow1.jpg", "/images/pretyellow2.jpg"] },
+
+                // Formal Products (2 angle pictures)
+                { id: 9, name: "Formal Silk Ensemble", price: 12990, originalPrice: 18990, category: "formal", image: "/images/formalkurti1.jpg", sizes: ["M", "L", "XL"], isNew: false, description: "Luxurious silk formal ensemble with intricate embellishments. Perfect for weddings.", shortDesc: "Premium silk formal suit", images: ["/images/formalkurti1.jpg", "/images/formalkurti2.jpg", "/images/formalkurti3.jpg"] },
+                { id: 10, name: "Velvet Formal Cape", price: 15990, originalPrice: 22990, category: "formal", image: "/images/formalvalvet1.jpg", sizes: ["M", "L", "XL"], isNew: false, description: "Elegant velvet cape with formal trousers. Makes a stunning statement.", shortDesc: "Luxury velvet cape set", images: ["/images/formalvalvet1.jpg", "/images/formalvalvet2.jpg", "/images/formalvalvet3.jpg"] },
+                { id: 11, name: "Embroidered Formal Suit", price: 18990, originalPrice: 25990, category: "formal", image: "/images/formalsuit1.jpg", sizes: ["S", "M", "L", "XL"], isNew: true, description: "Heavily embroidered formal suit with premium fabric. Red carpet ready.", shortDesc: "Heavy embroidery formal", images: ["/images/formalsuit1.jpg", "/images/formalsuit2.jpg", "/images/formalsuit3.jpg"] },
+                { id: 12, name: "Luxury Chiffon Suit", price: 14990, originalPrice: 19990, category: "formal", image: "/images/Oformalsuit1.jpg", sizes: ["Free"], isNew: true, description: "Elegant chiffon formal suit", images: ["/images/Oformalsuit1.jpg", "/images/Oformalsuit2.jpg", "/images/Oformalsuit3.jpg"] },
+
+                // Unstitched Products (1 angle picture)
+                { id: 13, name: "Unstitched Lawn Bundle", price: 3590, originalPrice: 4990, category: "unstitched", image: "/images/unstitchlawn1.jpg", sizes: ["Free"], isNew: true, description: "3-piece unstitched lawn suit bundle. Premium quality fabric with coordinated prints.", shortDesc: "3-piece lawn bundle", images: ["/images/unstitchlawn1.jpg", "/images/unstitchlawn2.jpg"] },
+                { id: 14, name: "Chiffon Dupatta Set", price: 2990, originalPrice: 3990, category: "unstitched", image: "/images/unstitchchiffon1.jpg", sizes: ["Free"], isNew: false, description: "Elegant chiffon dupatta with matching shirt piece. Lightweight and airy.", shortDesc: "Chiffon dupatta set", images: ["/images/unstitchchiffon1.jpg", "/images/unstitchchiffon2.jpg"] },
+                { id: 15, name: "Embroidered Lawn Bundle", price: 4990, originalPrice: 6990, category: "unstitched", image: "/images/unstitchreshmi1.jpg", sizes: ["Free"], isNew: true, description: "Heavy embroidered lawn bundle with dupatta. Perfect for festive occasions.", shortDesc: "Embroidered lawn bundle", images: ["/images/unstitchreshmi1.jpg", "/images/unstitchreshmi2.jpg"] },
+                { id: 16, name: "Unstitched Lawn Bundle", price: 3590, category: "unstitched", image: "/images/unstitchcutton1.jpg", sizes: ["Free"], isNew: true, description: "3-piece unstitched lawn suit bundle. Premium quality fabric with coordinated prints.", images: ["/images/unstitchcutton1.jpg", "/images/unstitchcutton2.jpg"] },
+                { id: 17, name: "Chiffon Dupatta Set", price: 2990, category: "unstitched", image: "/images/unstitchlawn11.jpg", sizes: ["Free"], isNew: false, description: "Elegant chiffon dupatta with matching shirt piece. Lightweight and airy.", images: ["/images/unstitchlawn11.jpg", "/images/unstitchlawn22.jpg"] },
+                { id: 18, name: "Embroidered Velvet Bundle", price: 4990, category: "unstitched", image: "/images/unstitchvalvet1.jpg", sizes: ["Free"], isNew: true, description: "Heavy embroidered velvet bundle with dupatta. Perfect for festive occasions.", images: ["/images/unstitchvalvet1.jpg", "/images/unstitchvalvet2.jpg"] },
+
+                // Sale Products (1 angle picture, marked with isSale flag)
+                { id: 19, name: "Sale Lawn Special", price: 2990, originalPrice: 5990, category: "lawn", image: "/images/saleone1.jpg", sizes: ["S", "M", "L", "XL"], isNew: false, isSale: true, description: "Limited time sale on premium lawn suits. Grab yours before they're gone!", shortDesc: "40% OFF - Premium lawn", images: ["/images/saleone1.jpg", "/images/saleone2.jpg"] },
+                { id: 20, name: "Sale Pret Collection", price: 3590, originalPrice: 6990, category: "pret", image: "/images/saletwo1.jpg", sizes: ["S", "M", "L", "XL"], isNew: false, isSale: true, description: "Amazing discounts on pret collection. Stylish and affordable.", shortDesc: "48% OFF - Pret collection", images: ["/images/saletwo1.jpg", "/images/saletwo2.jpg"] },
+                { id: 21, name: "Sale Formal Ensemble", price: 7790, originalPrice: 15990, category: "formal", image: "/images/salethree1.jpg", sizes: ["M", "L", "XL"], isNew: false, isSale: true, description: "Luxury formal wear at unbeatable prices. Limited stock available.", shortDesc: "51% OFF - Formal wear", images: ["/images/salethree1.jpg", "/images/salethree2.jpg"] },
+                { id: 22, name: "Sale Unstitched Bundle", price: 2150, originalPrice: 4290, category: "unstitched", image: "/images/salefour1.jpg", sizes: ["Free"], isNew: false, isSale: true, description: "Premium unstitched fabrics at discounted rates. Limited time offer.", shortDesc: "50% OFF - Unstitched", images: ["/images/salefour1.jpg", "/images/salefour2.jpg"] }
+            ];
+
+            // Add these lookbook products to your allProducts array (add after your existing products)
+            // Lookbook Products - Add these after your existing allProducts array
+            const lookbookProducts = [
+                { id: 101, name: "Lawn Summer Dream", price: 5490, originalPrice: 7990, category: "lawn", image: "/lookbook/look1.jpg", sizes: ["S", "M", "L", "XL"], isNew: true, description: "Dreamy lawn suit perfect for summer days with intricate embroidery.", shortDesc: "Summer lawn collection", images: ["/lookbook/look1.jpg", "/lookbook/look11.jpg"] },
+                { id: 102, name: "Pret Chiffon Elegance", price: 6990, originalPrice: 8990, category: "pret", image: "/lookbook/look2.jpg", sizes: ["S", "M", "L", "XL"], isNew: true, description: "Elegant chiffon pret shirt with modern design.", shortDesc: "Chiffon pret collection", images: ["/lookbook/look2.jpg", "/lookbook/look22.jpg"] },
+                { id: 103, name: "Formal Silk Ensemble", price: 18990, originalPrice: 25990, category: "formal", image: "/lookbook/look3.jpg", sizes: ["M", "L", "XL"], isNew: false, description: "Luxurious silk formal wear for special occasions.", shortDesc: "Premium silk formal", images: ["/lookbook/look3.jpg", "/lookbook/look33.jpg"] },
+                { id: 104, name: "Lawn Duo Collection", price: 4990, originalPrice: 6990, category: "lawn", image: "/lookbook/look4.jpg", sizes: ["S", "M", "L", "XL"], isNew: true, description: "Beautiful lawn duo set with matching dupatta.", shortDesc: "Lawn duo collection", images: ["/lookbook/look4.jpg", "/lookbook/look44.jpg"] },
+                { id: 105, name: "Unstitched Heritage", price: 3990, originalPrice: 5990, category: "unstitched", image: "/lookbook/look5.jpg", sizes: ["Free"], isNew: true, description: "Premium unstitched fabric with traditional patterns.", shortDesc: "Heritage collection", images: ["/lookbook/look5.jpg", "/lookbook/look55.jpg"] },
+                { id: 106, name: "Pret Digital Print", price: 6490, originalPrice: 8990, category: "pret", image: "/lookbook/look6.jpg", sizes: ["S", "M", "L", "XL"], isNew: true, description: "Contemporary digital printed pret shirt.", shortDesc: "Digital print pret", images: ["/lookbook/look6.jpg", "/lookbook/look66.jpg"] },
+                { id: 107, name: "Velvet Formal Cape", price: 15990, originalPrice: 22990, category: "formal", image: "/lookbook/look7.jpg", sizes: ["M", "L", "XL"], isNew: false, description: "Stunning velvet cape with formal trousers.", shortDesc: "Velvet formal set", images: ["/lookbook/look7.jpg", "/lookbook/look77.jpg"] },
+                { id: 108, name: "Lawn Embroidered", price: 5990, originalPrice: 7990, category: "lawn", image: "/lookbook/look8.jpg", sizes: ["S", "M", "L", "XL"], isNew: true, description: "Intricately embroidered lawn suit.", shortDesc: "Embroidered lawn", images: ["/lookbook/look8.jpg", "/lookbook/look88.jpg"] }
+            ];
+
+            const products = [...allProducts, ...lookbookProducts];
+
+        // Get orderId from URL parameters
+        function getOrderIdFromURL() {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get('orderId');
+        }
+
+        // Display order ID if exists
+        function displayOrderId() {
+            const orderId = getOrderIdFromURL();
+            const orderIdContainer = document.getElementById('orderIdContainer');
+            const orderIdValueSpan = document.getElementById('orderIdValue');
+
+            if (orderId && orderId.trim() !== '') {
+                orderIdValueSpan.textContent = orderId;
+                orderIdContainer.style.display = 'block';
+            } else {
+                orderIdContainer.style.display = 'none';
+            }
+        }
+
+        // Load cart and wishlist counts
+        function updateCartBadge() {
+            const cart = JSON.parse(localStorage.getItem('tehzeeb_cart') || '[]');
+            const badge = document.getElementById('cartCount');
+            if (badge) badge.innerText = cart.reduce((sum, item) => sum + (item.quantity || 1), 0);
+        }
+
+        function updateWishlistBadge() {
+            const wishlist = JSON.parse(localStorage.getItem('tehzeeb_wishlist') || '[]');
+            const wBadge = document.getElementById('wishlistCount');
+            if (wBadge) wBadge.innerText = wishlist.length;
+        }
+
+        // Render recommended products (random 4 products that are popular)
+        function renderRecommendedProducts() {
+            const grid = document.getElementById('recommendedGrid');
+            if (!grid) return;
+
+            // Get 4 random products (excluding any specific logic, just show bestsellers style)
+            const shuffled = [...products];
+            for (let i = shuffled.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+            }
+            const recommended = shuffled.slice(0, 4);
+
+            grid.innerHTML = recommended.map(product => `
+            <a href="product.html?id=${product.id}" class="product-card" data-id="${product.id}">
+                <div class="product-img">
+                    <img src="${product.image}" alt="${product.name}" onerror="this.src='https://placehold.co/400x500?text=Tehzeeb'">
+                </div>
+                <div class="product-info">
+                    <div class="product-title">${product.name}</div>
+                    <div class="product-price">Rs. ${product.price.toLocaleString()}</div>
+                </div>
+            </a>
+        `).join('');
+
+            // Add click handler to prevent default if needed (but anchor works fine)
+            document.querySelectorAll('.product-card').forEach(card => {
+                card.addEventListener('click', (e) => {
+                    const id = card.dataset.id;
+                    if (id) {
+                        window.location.href = `product.html?id=${id}`;
+                    }
+                });
+            });
+        }
+
+        // ---------- NAVBAR FUNCTIONS (same theme) ----------
+        const headerEl = document.querySelector("header");
+        window.addEventListener("scroll", () => {
+            if (window.scrollY > 50) headerEl.classList.add("scrolled");
+            else headerEl.classList.remove("scrolled");
+        });
+
+        // Search overlay
+        const searchIconBtn = document.getElementById('searchIconBtn');
+        const searchOverlayDiv = document.getElementById('searchOverlay');
+        const closeSearchBtn = document.getElementById('closeSearchBtn');
+        const globalSearch = document.getElementById('globalSearchInput');
+        const suggestionsDiv = document.getElementById('searchSuggestions');
+
+        if (searchIconBtn) {
+            searchIconBtn.addEventListener('click', () => searchOverlayDiv?.classList.add('open'));
+        }
+        if (closeSearchBtn) {
+            closeSearchBtn.addEventListener('click', () => searchOverlayDiv?.classList.remove('open'));
+        }
+        if (globalSearch) {
+            globalSearch.addEventListener('input', (e) => {
+                const val = e.target.value.trim();
+                if (!val) { suggestionsDiv.innerHTML = ''; return; }
+                const filtered = products.filter(p => p.name.toLowerCase().includes(val.toLowerCase()));
+                suggestionsDiv.innerHTML = filtered.slice(0, 5).map(p => `<div data-id="${p.id}">${p.name} - Rs.${p.price.toLocaleString()}</div>`).join('');
+                document.querySelectorAll('#searchSuggestions div').forEach(el => {
+                    el.addEventListener('click', () => {
+                        const pid = el.dataset.id;
+                        if (pid) window.location.href = `product.html?id=${pid}`;
+                    });
+                });
+            });
+        }
+
+        // Mobile Menu
+        const mobileSidebarDiv = document.getElementById('mobileSidebar');
+        const mobileOverlayDiv = document.getElementById('mobileOverlay');
+        const mobileToggle = document.getElementById('mobileMenuToggle');
+        const closeSidebar = document.getElementById('closeSidebarBtn');
+        const mobileCollectionsToggle = document.getElementById('mobileCollectionsToggle');
+        const mobileDropdownMenu = document.getElementById('mobileDropdown');
+
+        function openMobileMenu() {
+            mobileSidebarDiv.classList.add('open');
+            mobileOverlayDiv.classList.add('active');
+            document.body.classList.add('sidebar-open');
+        }
+        function closeMobileMenuFunc() {
+            mobileSidebarDiv.classList.remove('open');
+            mobileOverlayDiv.classList.remove('active');
+            document.body.classList.remove('sidebar-open');
+        }
+        window.closeMobileMenu = closeMobileMenuFunc;
+
+        if (mobileToggle) mobileToggle.addEventListener('click', openMobileMenu);
+        if (closeSidebar) closeSidebar.addEventListener('click', closeMobileMenuFunc);
+        if (mobileOverlayDiv) mobileOverlayDiv.addEventListener('click', closeMobileMenuFunc);
+        if (mobileCollectionsToggle) {
+            mobileCollectionsToggle.addEventListener('click', (e) => {
+                e.preventDefault();
+                mobileDropdownMenu.classList.toggle('show');
+                const icon = mobileCollectionsToggle.querySelector('i');
+                if (icon) icon.classList.toggle('rotated');
+            });
+        }
+        document.querySelectorAll('.mobile-nav-list a').forEach(link => link.addEventListener('click', closeMobileMenuFunc));
+
+        // Active nav highlight
+        function setActiveNav() {
+            const current = window.location.pathname.split("/").pop() || "success.html";
+            document.querySelectorAll(".desktop-nav a").forEach(link => {
+                const href = link.getAttribute("href");
+                if (href === current) link.classList.add("active");
+            });
+            document.querySelectorAll(".mobile-nav-list a").forEach(link => {
+                const href = link.getAttribute("href");
+                if (href === current) link.classList.add("active-mobile");
+            });
+        }
+
+        // Newsletter subscribe
+        document.getElementById('subscribeBtn')?.addEventListener('click', () => {
+            const email = document.getElementById('newsEmail')?.value;
+            alert(email ? `Thanks for subscribing! ${email}` : 'Enter a valid email');
+        });
+
+        // Handle continue shopping buttons
+        function setupNavigation() {
+            const continueBtn = document.getElementById('continueShoppingBtn');
+            const homeBtn = document.getElementById('homeBtn');
+
+            if (continueBtn) {
+                continueBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    window.location.href = 'collection.html';
+                });
+            }
+            if (homeBtn) {
+                homeBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    window.location.href = 'index.html';
+                });
+            }
+        }
+
+        // Clear cart if coming from successful order (optional - cart already cleared in checkout)
+        // We don't clear again to avoid issues
+
+        // Initialize
+        function init() {
+            displayOrderId();
+            updateCartBadge();
+            updateWishlistBadge();
+            renderRecommendedProducts();
+            setupNavigation();
+            setActiveNav();
+
+            // Add animation to success card
+            const card = document.querySelector('.success-card');
+            if (card) {
+                card.style.animation = 'fadeInUp 0.5s ease';
+            }
+
+            // If no order ID, hide the order ID container (already handled)
+            const orderId = getOrderIdFromURL();
+            if (!orderId) {
+                // Optional: add a note that this is a generic success page
+                const infoMsg = document.getElementById('infoMessage');
+                if (infoMsg) {
+                    infoMsg.innerHTML = '<i class="fas fa-heart"></i> Thank you for visiting Tehzeeb. Continue shopping for more elegant collections!';
+                }
+            }
+        }
+
+        init();
+    </script>
+</body>
+
+</html>
